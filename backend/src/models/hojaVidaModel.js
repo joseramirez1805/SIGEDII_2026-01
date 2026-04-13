@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 
 const hojaVidaSchema = new Schema({
-    userId: {
+    usuarioId: {
         type: Schema.Types.ObjectId,
         ref: "usuarios",
         required: true,
@@ -14,7 +14,7 @@ const hojaVidaSchema = new Schema({
         required: true
     },
     fechaNacimiento: {
-        type: Date,
+        type: String,
         required: true
     },
     genero: {
@@ -40,12 +40,12 @@ const hojaVidaSchema = new Schema({
         nivelAcademico: {
             type: String,
             required: true,
-            enum: ["PREGRADO", "POSGRADO"]
+            enum: ["pregrado", "postgrado"]
         },
         nivelFormacion: {
             type: String,
             required: true,
-            enum: ["DOCTORADO", "MAESTRIA"]
+            enum: ["doctorado", "maestria"]
         },
         areaConocimiento: {
             type: String,
@@ -74,7 +74,7 @@ const hojaVidaSchema = new Schema({
         estadoEstudio: {
             type: String,
             required: true,
-            enum: ["FINALIZADO", "EN_PROCESO"]
+            enum: ["finalizado", "enProceso"]
         },
         fechaTerminacionMaterias: {
             type: Date,
@@ -92,7 +92,7 @@ const hojaVidaSchema = new Schema({
         tipoInstitucion: {
             type: String,
             required: true,
-            enum: ["PUBLICO", "PRIVADO"]
+            enum: ["publico", "privado"]
         },
         nombreInstitucion: {
             type: String,
@@ -136,7 +136,7 @@ const hojaVidaSchema = new Schema({
         jornadaLaboral: {
             type: String,
             required: true,
-            enum: ["COMPLETA", "PARCIAL"]
+            enum: ["completa", "parcial"]
         },
         motivoRetiro: {
             type: String,

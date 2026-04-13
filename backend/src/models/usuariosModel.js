@@ -8,12 +8,17 @@ const usuariosSchema = new Schema({
         required: true,
         enum: ["jefeTalentoHumano", "servidorPublico"]
     },
+    contrasena:{
+        type: String,
+        required: true,
+        minlength: 6
+    },
     nombres: {
         type: [String],
         required: true
     },
     numIdentificacion: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
@@ -28,11 +33,6 @@ const usuariosSchema = new Schema({
         unique: true,
         lowercase: true,
         trim: true
-    },
-    password:{
-        type: String,
-        required: true,
-        minlength: 6
     },
     activo: {
         type: Boolean,
