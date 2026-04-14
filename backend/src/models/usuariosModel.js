@@ -40,9 +40,10 @@ const usuariosSchema = new Schema({
     }
 
     }, {
-        timestamps: true
+        timestamps: true,
+        collection: "usuarios"
     });
 
-const usuarios = model("User", usuariosSchema);
+const usuarios = model("Usuario", usuariosSchema, "usuarios");
 
 export default usuarios;
