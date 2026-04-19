@@ -44,7 +44,7 @@ function ShieldLogo() {
   );
 }
 
-export default function SigepII() {
+export default function SigepII({ setPagina }) {
   const [slide, setSlide] = useState(0);
   const [searchVal, setSearchVal] = useState("");
 
@@ -52,118 +52,138 @@ export default function SigepII() {
   const next = () => setSlide((s) => (s + 1) % SLIDES.length);
 
   return (
-    <>
-      <div className="sigep-root">
+    <div className="sigep-root">
 
-        {/* Top Bar */}
-        <div className="top-bar">
-          <span className="gov-logo">GOV.CO</span>
-          <div className="top-bar-right">
-            <button>Seleccionar idioma ▾</button>
-            <a href="#">INGRESAR A LA INTRANET</a>
-            <a href="#">A+</a>
-            <a href="#">A-</a>
-            <button>⟳</button>
-          </div>
+      {/* Top Bar */}
+      <div className="top-bar">
+        <span className="gov-logo">GOV.CO</span>
+        <div className="top-bar-right">
+          <button>Seleccionar idioma ▾</button>
+          <a href="#">INGRESAR A LA INTRANET</a>
+          <a href="#">A+</a>
+          <a href="#">A-</a>
+          <button>⟳</button>
         </div>
-
-        {/* Navbar */}
-        <nav className="navbar">
-          <div className="nav-brand">
-            <ShieldLogo />
-            <div className="brand-name">Función Pública</div>
-          </div>
-          <ul className="nav-links">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.label}>
-                <a href="#" className={item.active ? "active" : ""}>{item.label}</a>
-              </li>
-            ))}
-          </ul>
-          <div className="nav-search">
-            <input
-              placeholder="Buscar"
-              value={searchVal}
-              onChange={(e) => setSearchVal(e.target.value)}
-            />
-            <button>🔍</button>
-          </div>
-        </nav>
-
-        {/* Hero */}
-        <div className="hero">
-          <div className="hero-left">
-            <div className="hero-mockup">
-              <div className="mockup-dots">
-                <span className="dot-r" /><span className="dot-y" /><span className="dot-g" />
-              </div>
-              <div className="mockup-logo">
-                si<span>g</span>ep<span className="mockup-logo-ii">II</span>
-              </div>
-              <div className="mockup-sub">Sistema de Información y Gestión del Empleo Público</div>
-              <div className="mockup-badge">1</div>
-            </div>
-          </div>
-
-          <div className="hero-right">
-            <button className="hero-arrow" onClick={prev}>‹</button>
-            <div>
-              <div className="alert-title">{SLIDES[slide].title}</div>
-              <div className="alert-text">{SLIDES[slide].text}</div>
-              <div className="dots-row">
-                {SLIDES.map((_, i) => (
-                  <button
-                    key={i}
-                    className={`dot-ind${i === slide ? " on" : ""}`}
-                    onClick={() => setSlide(i)}
-                  />
-                ))}
-              </div>
-            </div>
-            <button className="hero-arrow hero-right-arrow" onClick={next}>›</button>
-          </div>
-        </div>
-
-        {/* Breadcrumb */}
-        <div className="breadcrumb">
-          SIGEP II &rsaquo; <span>SIGEP II</span>
-        </div>
-
-        {/* Main Content */}
-        <div className="main-section">
-          <h1 className="main-title">Bienvenido a SIGEP II</h1>
-          <p className="main-text">
-            Para la actualización de la Hoja de Vida puede ingresar al{" "}
-            <a className="main-link" href="#">siguiente enlace y hacerlo directamente</a>.
-          </p>
-          <p className="main-text">
-            El Departamento Administrativo de la Función Pública lidera desde el año 2010
-            la implementación del Sistema de Información y Gestión del Empleo Público (SIGEP)
-            con el fin de compilar información de gestión del talento humano al servicio del
-            Estado Colombiano, lo anterior en cumplimiento del artículo 18 de la Ley 909 de 2004.
-          </p>
-          <button className="cta-btn">Ingresar a SIGEP II</button>
-
-          <div className="cards-row">
-            {CARDS.map((card) => (
-              <div className="info-card" key={card.title}>
-                <div className="card-icon">{card.icon}</div>
-                <div className="card-title">{card.title}</div>
-                <div className="card-desc">{card.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="footer">
-          <p>Departamento Administrativo de la Función Pública — República de Colombia</p>
-          <p className="footer-meta">
-            <a href="#">www.funcionpublica.gov.co</a> &nbsp;|&nbsp; PBX: 601 7395656
-          </p>
-        </div>
-
       </div>
-    </>
+
+      {/* Navbar */}
+      <nav className="navbar">
+        <div className="nav-brand">
+          <ShieldLogo />
+          <div className="brand-name">Función Pública</div>
+        </div>
+        <ul className="nav-links">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.label}>
+              <a href="#" className={item.active ? "active" : ""}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+        <div className="nav-search">
+          <input
+            placeholder="Buscar"
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+          />
+          <button>🔍</button>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <div className="hero">
+        <div className="hero-left">
+          <div className="hero-mockup">
+            <div className="mockup-dots">
+              <span className="dot-r" /><span className="dot-y" /><span className="dot-g" />
+            </div>
+            <div className="mockup-logo">
+              si<span>g</span>ep<span className="mockup-logo-ii">II</span>
+            </div>
+            <div className="mockup-sub">Sistema de Información y Gestión del Empleo Público</div>
+            <div className="mockup-badge">1</div>
+          </div>
+        </div>
+
+        <div className="hero-right">
+          <button className="hero-arrow" onClick={prev}>‹</button>
+          <div>
+            <div className="alert-title">{SLIDES[slide].title}</div>
+            <div className="alert-text">{SLIDES[slide].text}</div>
+            <div className="dots-row">
+              {SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  className={`dot-ind${i === slide ? " on" : ""}`}
+                  onClick={() => setSlide(i)}
+                />
+              ))}
+            </div>
+          </div>
+          <button className="hero-arrow hero-right-arrow" onClick={next}>›</button>
+        </div>
+      </div>
+
+      {/* Breadcrumb */}
+      <div className="breadcrumb">
+        SIGEP II &rsaquo; <span>SIGEP II</span>
+      </div>
+
+      {/* Main Content */}
+      <div className="main-section">
+        <h1 className="main-title">Bienvenido a SIGEP II</h1>
+
+        <p className="main-text">
+          Para la actualización de la Hoja de Vida puede ingresar al{" "}
+          <span 
+            className="main-link"
+            onClick={() => setPagina("hoja")}
+          >
+            siguiente enlace y hacerlo directamente
+          </span>.
+        </p>
+
+        <p className="main-text">
+          El Departamento Administrativo de la Función Pública lidera desde el año 2010
+          la implementación del Sistema de Información y Gestión del Empleo Público (SIGEP)
+          con el fin de compilar información de gestión del talento humano al servicio del
+          Estado Colombiano.
+        </p>
+
+        <button 
+          className="cta-btn"
+          onClick={() => setPagina("hoja")}
+        >
+          Ir a Hoja de Vida
+        </button>
+
+        <div className="cards-row">
+          {CARDS.map((card) => (
+            <div
+              className="info-card"
+              key={card.title}
+              onClick={() => {
+                if (card.title === "Hoja de Vida") {
+                  setPagina("hoja");
+                }
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <div className="card-icon">{card.icon}</div>
+              <div className="card-title">{card.title}</div>
+              <div className="card-desc">{card.desc}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="footer">
+        <p>Departamento Administrativo de la Función Pública — República de Colombia</p>
+        <p className="footer-meta">
+          <a href="#">www.funcionpublica.gov.co</a> | PBX: 601 7395656
+        </p>
+      </div>
+
+    </div>
   );
 }
