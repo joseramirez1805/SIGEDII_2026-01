@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/login.css";
+import "../css/Login.css";
 
 export default function Recuperar({ setPagina }) {
   const [tipoDocumento, setTipoDocumento] = useState("");
@@ -25,6 +25,32 @@ export default function Recuperar({ setPagina }) {
   };
 
   return (
+    <div className="sigep-root login-root">
+      <header className="top-bar">
+        <div className="gov-logo">GOV.CO</div>
+        <div className="top-bar-right">
+          <button type="button">Seleccionar idioma</button>
+          <a href="#">INGRESAR A LA INTRANET</a>
+          <span>A+</span>
+          <span>A-</span>
+        </div>
+      </header>
+
+      <nav className="navbar">
+        <div className="nav-brand">
+          <div className="brand-name">Función Pública</div>
+        </div>
+
+        <ul className="nav-links">
+          <li><a href="#">SIGEP II</a></li>
+          <li><a href="#">¿Qué es?</a></li>
+          <li><a href="#">Directorios</a></li>
+          <li><a href="#">Cifras</a></li>
+          <li><a href="#">Instructivos y Formatos</a></li>
+          <li><a href="#">Preguntas Frecuentes</a></li>
+          <li><a className="active" href="#">Ingresar</a></li>
+        </ul>
+      </nav>
     <div className="sigep-root login-root">
       <main className="login-main">
         <section className="login-contenedor">
@@ -77,6 +103,15 @@ export default function Recuperar({ setPagina }) {
 
         </section>
       </main>
+      <footer className="footer">
+        <div>
+          Departamento Administrativo de la Función Pública — República de Colombia
+        </div>
+        <div className="footer-meta">
+          <a href="#">www.funcionpublica.gov.co</a> | PBX: 601 7395656
+        </div>
+      </footer>
     </div>
+  </div>
   );
 }
