@@ -2,7 +2,6 @@ import usuarios from "../models/usuariosModel.js";
 import customError from "../utils/customError.js";
 import { passwordEncoder, comparePassword } from "../utils/passwordEncoder.js";
 import { jwtGenerator } from "../utils/JwtGenerator.js";
-import { use } from "react";
 
 const registrarUsuario = async (datosUsuario) => {
   const { email, numIdentificacion } = datosUsuario;
@@ -42,7 +41,7 @@ const loginUser = async (datosUsuario)=>{
     throw new customError("La contraseña es incorrecta", 401);
   }
 
-  const jwtString = jwtGenerator(userFound._id, {
+  const jwtString = jwtGenerator(userFound._id.toString(), {
                                                   rol: userFound.rol,
                                                   numIdentificacion: userFound.numIdentificacion
                                                 },
@@ -53,11 +52,11 @@ const loginUser = async (datosUsuario)=>{
     nombres: userFound.nombres,
     email: userFound.email
   },
-  accessToken: token
+  accessToken: jwtString
   };
 
-}   
+}  
 
-export default {
+export {
   registrarUsuario, loginUser
 };
