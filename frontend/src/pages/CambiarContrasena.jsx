@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
+import AuthLayout from "../components/AuthLayout.jsx";
 
-export default function CambiarContrasena({ setPagina }) {
+export default function CambiarContrasena() {
   const [actual, setActual] = useState("");
   const [nueva, setNueva] = useState("");
   const [confirmar, setConfirmar] = useState("");
   const [error, setError] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const navigate = useNavigate();
 
   const validarContrasena = (pass) => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$/;
@@ -41,33 +44,7 @@ export default function CambiarContrasena({ setPagina }) {
   };
 
   return (
-  <div className="sigep-root login-root">
-      <header className="top-bar">
-        <div className="gov-logo">GOV.CO</div>
-        <div className="top-bar-right">
-          <button type="button">Seleccionar idioma</button>
-          <a href="#">INGRESAR A LA INTRANET</a>
-          <span>A+</span>
-          <span>A-</span>
-        </div>
-      </header>
-
-      <nav className="navbar">
-        <div className="nav-brand">
-          <div className="brand-name">Función Pública</div>
-        </div>
-
-        <ul className="nav-links">
-          <li><a href="#">SIGEP II</a></li>
-          <li><a href="#">¿Qué es?</a></li>
-          <li><a href="#">Directorios</a></li>
-          <li><a href="#">Cifras</a></li>
-          <li><a href="#">Instructivos y Formatos</a></li>
-          <li><a href="#">Preguntas Frecuentes</a></li>
-          <li><a className="active" href="#">Ingresar</a></li>
-        </ul>
-      </nav>
-    <div className="sigep-root login-root">
+    <AuthLayout>
       <main className="login-main">
         <section className="login-contenedor">
 
@@ -79,7 +56,7 @@ export default function CambiarContrasena({ setPagina }) {
 
             <button
               className="login-enlace-blanco"
-              onClick={() => setPagina("login")}
+              onClick={() => navigate("/login")}
             >
               ← Volver
             </button>
@@ -121,15 +98,6 @@ export default function CambiarContrasena({ setPagina }) {
 
         </section>
       </main>
-      <footer className="footer">
-        <div>
-          Departamento Administrativo de la Función Pública — República de Colombia
-        </div>
-        <div className="footer-meta">
-          <a href="#">www.funcionpublica.gov.co</a> | PBX: 601 7395656
-        </div>
-      </footer>
-    </div>
-  </div>
+    </AuthLayout>
   );
 }

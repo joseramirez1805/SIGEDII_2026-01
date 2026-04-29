@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
 
 const SLIDES = [
@@ -44,9 +45,10 @@ function ShieldLogo() {
   );
 }
 
-export default function SigepII({ setPagina }) {
+export default function SigepII() {
   const [slide, setSlide] = useState(0);
   const [searchVal, setSearchVal] = useState("");
+  const navigate = useNavigate();
 
   const prev = () => setSlide((s) => (s - 1 + SLIDES.length) % SLIDES.length);
   const next = () => setSlide((s) => (s + 1) % SLIDES.length);
@@ -59,7 +61,15 @@ export default function SigepII({ setPagina }) {
         <span className="gov-logo">GOV.CO</span>
         <div className="top-bar-right">
           <button>Seleccionar idioma ▾</button>
-          <a href="#">INGRESAR A LA INTRANET</a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/login");
+            }}
+          >
+            INGRESAR A LA INTRANET
+          </a>
           <a href="#">A+</a>
           <a href="#">A-</a>
           <button>⟳</button>
@@ -133,16 +143,6 @@ export default function SigepII({ setPagina }) {
         <h1 className="main-title">Bienvenido a SIGEP II</h1>
 
         <p className="main-text">
-          Para la actualización de la Hoja de Vida puede ingresar al{" "}
-          <span 
-            className="main-link"
-            onClick={() => setPagina("hoja")}
-          >
-            siguiente enlace y hacerlo directamente
-          </span>.
-        </p>
-
-        <p className="main-text">
           El Departamento Administrativo de la Función Pública lidera desde el año 2010
           la implementación del Sistema de Información y Gestión del Empleo Público (SIGEP)
           con el fin de compilar información de gestión del talento humano al servicio del
@@ -151,9 +151,12 @@ export default function SigepII({ setPagina }) {
 
         <button 
           className="cta-btn"
-          onClick={() => setPagina("hoja")}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/login");
+            }}
         >
-          Ir a Hoja de Vida
+          Iniciar Sesion
         </button>
 
         <div className="cards-row">
@@ -163,7 +166,7 @@ export default function SigepII({ setPagina }) {
               key={card.title}
               onClick={() => {
                 if (card.title === "Hoja de Vida") {
-                  setPagina("hoja");
+                  navigate("/hoja-de-vida");
                 }
               }}
               style={{ cursor: "pointer" }}

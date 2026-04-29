@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/HojaDeVida.css";
 
 const secciones = [
@@ -9,8 +10,9 @@ const secciones = [
   { id: "gerencia", titulo: "Gerencia pública" },
 ];
 
-export default function HojaDeVida({ setPagina }) {
+export default function HojaDeVida() {
   const [seccionActual, setSeccionActual] = useState("datos-personales");
+  const navigate = useNavigate();
 
   const renderizarSeccion = () => {
     switch (seccionActual) {
@@ -61,7 +63,7 @@ export default function HojaDeVida({ setPagina }) {
           <div className="hv-header-top">
             <button
               className="hv-boton-volver"
-              onClick={() => setPagina("home")}
+              onClick={() => navigate("/home")}
             >
               ← Volver al inicio
             </button>
