@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import AuthLayout from "../components/AuthLayout.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 
-export default function Login({ setUsuarioAutenticado }) {
+export default function Login() {
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [mensajeError, setMensajeError] = useState("");
   const navigate = useNavigate();
+  const { iniciarSesion } = useAuth();
 
   const manejarEnvio = (evento) => {
     evento.preventDefault();
@@ -22,7 +24,7 @@ export default function Login({ setUsuarioAutenticado }) {
 
     // SIMULACIÓN LOGIN
     if (numeroDocumento === "123" && contrasena === "123") {
-      setUsuarioAutenticado(true);
+      iniciarSesion();
       navigate("/home");
     } else {
       setMensajeError("Credenciales inválidas");
