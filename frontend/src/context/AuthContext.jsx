@@ -1,17 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [usuarioAutenticado, setUsuarioAutenticado] = useState(false);
-
-  useEffect(() => {
-    const sessionGuardada = localStorage.getItem("sigep-usuario-autenticado");
-
-    if (sessionGuardada === "true") {
-      setUsuarioAutenticado(true);
-    }
-  }, []);
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState(() => {
+    return localStorage.getItem("sigep-usuario-autenticado") === "true";
+  });
 
   const iniciarSesion = () => {
     setUsuarioAutenticado(true);

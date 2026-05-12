@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "../pages/Login.jsx";
 import Home from "../pages/Home.jsx";
+import PanelSigep from "../pages/PanelSigep.jsx";
 import Recuperar from "../pages/Recuperar.jsx";
 import CambiarContrasena from "../pages/CambiarContrasena.jsx";
 import HojaDeVida from "../pages/HojaDeVida.jsx";
@@ -32,13 +33,14 @@ export default function AppRoutes() {
       <Route path="/" element={<Navigate to="/home" replace />} />
       <Route path="/home" element={<Home />} />
       <Route
-        path="/login"
+        path="/panel-sigep"
         element={
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
+          <ProtectedRoute>
+            <PanelSigep />
+          </ProtectedRoute>
         }
       />
+      <Route path="/login" element={<Login />} />
       <Route path="/recuperar" element={<Recuperar />} />
       <Route path="/cambiar-contrasena" element={<CambiarContrasena />} />
       <Route

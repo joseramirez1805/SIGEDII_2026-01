@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Home.css";
 
 const SLIDES = [
@@ -85,7 +85,15 @@ export default function SigepII() {
         <ul className="nav-links">
           {NAV_ITEMS.map((item) => (
             <li key={item.label}>
-              <a href="#" className={item.active ? "active" : ""}>{item.label}</a>
+              {item.label === "Ingresar" ? (
+                <Link to="/login" className={item.active ? "active" : ""}>
+                  {item.label}
+                </Link>
+              ) : (
+                <a href="#" className={item.active ? "active" : ""}>
+                  {item.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>

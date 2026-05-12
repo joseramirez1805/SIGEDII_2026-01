@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import AuthLayout from "../components/AuthLayout.jsx";
@@ -10,7 +10,14 @@ export default function Login() {
   const [contrasena, setContrasena] = useState("");
   const [mensajeError, setMensajeError] = useState("");
   const navigate = useNavigate();
-  const { iniciarSesion } = useAuth();
+  const { iniciarSesion, usuarioAutenticado } = useAuth();
+
+  // Si ya está autenticado, redirigir a panel-sigep
+  useEffect(() => {
+    if (usuarioAutenticado) {
+      navigate("/panel-sigep", { replace: true });
+    }
+  }, [usuarioAutenticado, navigate]);
 
   const manejarEnvio = (evento) => {
     evento.preventDefault();
@@ -25,7 +32,7 @@ export default function Login() {
     // SIMULACIÓN LOGIN
     if (numeroDocumento === "123" && contrasena === "123") {
       iniciarSesion();
-      navigate("/home");
+      navigate("/panel-sigep");
     } else {
       setMensajeError("Credenciales inválidas");
     }

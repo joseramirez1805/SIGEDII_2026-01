@@ -1,10 +1,425 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Montserrat:wght@700;800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .hv-root {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  background: #f5f6fa;
   font-family: "Source Sans 3", sans-serif;
-  color: #222;
+  background: #f5f6fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.hv-header {
+  background: #1a4e8c;
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hv-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hv-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.hv-titulo-principal {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hv-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.hv-header-right button {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hv-header-right button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* =====================
+   NAVEGACIÓN PRINCIPAL
+===================== */
+
+.hv-nav-principal {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24px;
+  gap: 0;
+}
+
+.hv-tab {
+  border: none;
+  background: transparent;
+  color: #444;
+  padding: 12px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.hv-tab:hover {
+  color: #1a4e8c;
+}
+
+.hv-tab.activo {
+  color: #1a4e8c;
+  border-bottom-color: #1a4e8c;
+  font-weight: 600;
+}
+
+/* =====================
+   CONTENEDOR PRINCIPAL
+===================== */
+
+.hv-contenedor {
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hv-contenedor > h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a4e8c;
+  margin-bottom: 20px;
+}
+
+/* =====================
+   MÓDULO
+===================== */
+
+.hv-modulo {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e5ecf7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================
+   SUBTABS
+===================== */
+
+.hv-subtabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.hv-subtab {
+  background: transparent;
+  border: none;
+  color: #666;
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.hv-subtab:hover {
+  color: #1a4e8c;
+}
+
+.hv-subtab.activo {
+  color: #1a4e8c;
+  border-bottom-color: #1a4e8c;
+  font-weight: 600;
+}
+
+/* =====================
+   FORMULARIOS
+===================== */
+
+.hv-formulario {
+  padding: 20px 0;
+}
+
+.hv-seccion {
+  padding: 20px 0;
+}
+
+.hv-seccion h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a4e8c;
+  margin-bottom: 16px;
+}
+
+.hv-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hv-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hv-campo label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.hv-campo input,
+.hv-campo select {
+  padding: 8px 12px;
+  border: 1px solid #d0d7e6;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+.hv-campo input:focus,
+.hv-campo select:focus {
+  outline: none;
+  border-color: #1a4e8c;
+  box-shadow: 0 0 0 3px rgba(26, 78, 140, 0.1);
+}
+
+/* =====================
+   ACCIONES
+===================== */
+
+.hv-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.hv-boton-guardar,
+.hv-boton-cargar {
+  background: #1a4e8c;
+  color: #fff;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hv-boton-guardar:hover,
+.hv-boton-cargar:hover {
+  background: #1e3a5f;
+}
+
+.hv-boton-cancelar {
+  background: #e8e8e8;
+  color: #333;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hv-boton-cancelar:hover {
+  background: #d8d8d8;
+}
+
+.hv-boton-agregar {
+  background: #1a4e8c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all 0.2s;
+}
+
+.hv-boton-agregar:hover {
+  background: #1e3a5f;
+}
+
+/* =====================
+   TABLAS
+===================== */
+
+.hv-tabla-contenedor {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.hv-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.hv-tabla thead {
+  background: #1a4e8c;
+  color: #fff;
+}
+
+.hv-tabla th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.hv-tabla td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.hv-tabla tbody tr:hover {
+  background: #f5f6fa;
+}
+
+.hv-acciones-tabla {
+  display: flex;
+  gap: 8px;
+}
+
+.hv-acciones-tabla button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+  transition: all 0.2s;
+}
+
+.hv-acciones-tabla button:hover {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+/* =====================
+   CARGA DE DOCUMENTOS
+===================== */
+
+.hv-carga-documentos {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border: 2px dashed #d0d7e6;
+  border-radius: 6px;
+  align-items: center;
+}
+
+.hv-carga-documentos input[type="file"] {
+  padding: 8px;
+  border: 1px solid #d0d7e6;
+  border-radius: 4px;
+  flex: 1;
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+.hv-footer {
+  padding: 16px 24px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.hv-boton-volver {
+  background: transparent;
+  border: none;
+  color: #1a4e8c;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline;
+  transition: all 0.2s;
+}
+
+.hv-boton-volver:hover {
+  color: #1e3a5f;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+  .hv-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hv-header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hv-nav-principal {
+    padding: 0 16px;
+    overflow-x: auto;
+  }
+
+  .hv-contenedor {
+    padding: 16px;
+  }
+
+  .hv-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hv-tabla {
+    font-size: 12px;
+  }
+
+  .hv-tabla th,
+  .hv-tabla td {
+    padding: 8px;
+  }
 }
 
 .hv-sidebar {

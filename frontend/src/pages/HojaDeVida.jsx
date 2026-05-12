@@ -1,36 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
 import "../css/HojaDeVida.css";
 
-const secciones = [
-  { id: "datos-personales", titulo: "Datos personales" },
-  { id: "direccion", titulo: "Dirección" },
+const MODULOS = [
+  { id: "datos", titulo: "Datos Personales" },
   { id: "educacion", titulo: "Educación" },
-  { id: "experiencia", titulo: "Experiencia laboral" },
-  { id: "gerencia", titulo: "Gerencia pública" },
+  { id: "experiencia", titulo: "Experiencia Laboral" },
+  { id: "docencia", titulo: "Experiencia Laboral Docente" },
+  { id: "documentos", titulo: "Documentos Adicionales" },
+  { id: "gerencia", titulo: "Gerencia Pública" },
 ];
 
 export default function HojaDeVida() {
-  const [seccionActual, setSeccionActual] = useState("datos-personales");
+  const [moduloActual, setModuloActual] = useState("datos");
+  const [submodulo, setSubmodulo] = useState("basicos");
   const navigate = useNavigate();
+  const { cerrarSesion } = useAuth();
 
-  const renderizarSeccion = () => {
-    switch (seccionActual) {
-      case "datos-personales":
-        return <DatosPersonales />;
-      case "direccion":
-        return <Direccion />;
+  const renderizarContenido = () => {
+    switch (moduloActual) {
+      case "datos":
+        return <ModuloDatos submodulo={submodulo} setSubmodulo={setSubmodulo} />;
       case "educacion":
-        return <Educacion />;
+        return <ModuloEducacion />;
       case "experiencia":
-        return <Experiencia />;
+        return <ModuloExperiencia />;
+      case "docencia":
+        return <ModuloDocencia />;
+      case "documentos":
+        return <ModuloDocumentos />;
       case "gerencia":
-        return (
-          <div className="hv-bloque">
-            <h2>Gerencia pública</h2>
-            <p>Esta sección será implementada en futuras versiones del sistema.</p>
-          </div>
-        );
+        return <ModuloGerencia />;
       default:
         return null;
     }
@@ -38,357 +39,358 @@ export default function HojaDeVida() {
 
   return (
     <div className="hv-root">
-      <aside className="hv-sidebar">
-        <h1 className="hv-titulo">Hoja de vida</h1>
-        <p className="hv-subtitulo">SIGEP II</p>
+      {/* Header */}
+      <header className="hv-header">
+        <div className="hv-header-left">
+          <div className="hv-logo">sigepII</div>
+          <div className="hv-titulo-principal">Función Pública</div>
+        </div>
+        <div className="hv-header-right">
+          <span>Ivan Mauricio Cabezas Troyano</span>
+          <button onClick={() => cerrarSesion()}>Cerrar sesión</button>
+        </div>
+      </header>
 
-        <nav className="hv-menu">
-          {secciones.map((seccion) => (
-            <button
-              key={seccion.id}
-              className={`hv-boton-menu ${
-                seccionActual === seccion.id ? "activo" : ""
-              }`}
-              onClick={() => setSeccionActual(seccion.id)}
-            >
-              {seccion.titulo}
-            </button>
-          ))}
-        </nav>
-      </aside>
+      {/* Navegación principal */}
+      <nav className="hv-nav-principal">
+        {MODULOS.map((mod) => (
+          <button
+            key={mod.id}
+            className={`hv-tab ${moduloActual === mod.id ? "activo" : ""}`}
+            onClick={() => {
+              setModuloActual(mod.id);
+              setSubmodulo("basicos");
+            }}
+          >
+            {mod.titulo}
+          </button>
+        ))}
+      </nav>
 
-      <main className="hv-contenido">
-        <header className="hv-cabecera">
+      {/* Contenido */}
+      <div className="hv-contenedor">
+        <h1>{MODULOS.find(m => m.id === moduloActual)?.titulo}</h1>
+        {renderizarContenido()}
+      </div>
 
-          <div className="hv-header-top">
-            <button
-              className="hv-boton-volver"
-              onClick={() => navigate("/home")}
-            >
-              ← Volver al inicio
-            </button>
+      {/* Footer */}
+      <footer className="hv-footer">
+        <button className="hv-boton-volver" onClick={() => navigate("/panel-sigep")}>
+          ← Volver al panel
+        </button>
+      </footer>
+    </div>
+  );
+}
+
+/* =====================
+   MÓDULO DATOS PERSONALES
+===================== */
+
+function ModuloDatos({ submodulo, setSubmodulo }) {
+  const [datosBasicos] = useState({
+    nombre: "Ivan Mauricio Cabezas Troyano",
+    tipoDoc: "CÉDULA DE CIUDADANÍA",
+    numeroDoc: "13456789",
+    correo: "ivan@example.com",
+  });
+
+  return (
+    <div className="hv-modulo">
+      <div className="hv-subtabs">
+        <button
+          className={`hv-subtab ${submodulo === "basicos" ? "activo" : ""}`}
+          onClick={() => setSubmodulo("basicos")}
+        >
+          Datos Básicos
+        </button>
+        <button
+          className={`hv-subtab ${submodulo === "demograficos" ? "activo" : ""}`}
+          onClick={() => setSubmodulo("demograficos")}
+        >
+          Datos Demográficos
+        </button>
+        <button
+          className={`hv-subtab ${submodulo === "contacto" ? "activo" : ""}`}
+          onClick={() => setSubmodulo("contacto")}
+        >
+          Datos de Contacto
+        </button>
+      </div>
+
+      <div className="hv-formulario">
+        {submodulo === "basicos" && (
+          <div className="hv-seccion">
+            <h3>Datos Básicos de Identificación</h3>
+            <div className="hv-grid-2">
+              <div className="hv-campo">
+                <label>Nombre</label>
+                <input type="text" value={datosBasicos.nombre} readOnly />
+              </div>
+              <div className="hv-campo">
+                <label>Tipo de Documento</label>
+                <input type="text" value={datosBasicos.tipoDoc} readOnly />
+              </div>
+              <div className="hv-campo">
+                <label>Número de Identificación</label>
+                <input type="text" value={datosBasicos.numeroDoc} readOnly />
+              </div>
+              <div className="hv-campo">
+                <label>Correo Electrónico</label>
+                <input type="email" value={datosBasicos.correo} readOnly />
+              </div>
+            </div>
+            <div className="hv-acciones">
+              <button className="hv-boton-guardar">Guardar</button>
+              <button className="hv-boton-cancelar">Cancelar</button>
+            </div>
           </div>
-
-          <h2>
-            Sección:{" "}
-            {secciones.find((s) => s.id === seccionActual)?.titulo}
-          </h2>
-          <p>Diligencia cada apartado de forma independiente.</p>
-        </header>
-
-        {renderizarSeccion()}
-      </main>
-    </div>
-  );
-}
-
-/* =========================
-   DATOS PERSONALES
-========================= */
-
-function DatosPersonales() {
-  const [form, setForm] = useState({
-    nombres: "",
-    apellidos: "",
-    tipoDocumento: "",
-    numeroDocumento: "",
-    fechaNacimiento: "",
-    genero: "",
-    correo: "",
-    telefono: "",
-  });
-
-  const [error, setError] = useState("");
-  const [mensaje, setMensaje] = useState("");
-
-  const manejarCambio = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const validar = () => {
-    if (
-      !form.nombres ||
-      !form.apellidos ||
-      !form.tipoDocumento ||
-      !form.numeroDocumento ||
-      !form.fechaNacimiento ||
-      !form.genero ||
-      !form.correo
-    ) return "Campos obligatorios incompletos.";
-
-    if (!form.correo.includes("@")) return "Correo inválido.";
-
-    return "";
-  };
-
-  const guardar = () => {
-    const err = validar();
-    if (err) {
-      setError(err);
-      setMensaje("");
-      return;
-    }
-
-    setError("");
-    setMensaje("Datos guardados correctamente.");
-    console.log(form);
-  };
-
-  return (
-    <div className="hv-bloque">
-      <h2>Datos personales</h2>
-
-      {error && <div className="login-error">{error}</div>}
-      {mensaje && <div className="login-success">{mensaje}</div>}
-
-      <div className="hv-form-grid">
-        <input name="nombres" placeholder="Nombres" value={form.nombres} onChange={manejarCambio}/>
-        <input name="apellidos" placeholder="Apellidos" value={form.apellidos} onChange={manejarCambio}/>
-        <select name="tipoDocumento" value={form.tipoDocumento} onChange={manejarCambio}>
-          <option value="">Tipo documento</option>
-          <option>CC</option>
-          <option>CE</option>
-        </select>
-        <input name="numeroDocumento" placeholder="Número documento" value={form.numeroDocumento} onChange={manejarCambio}/>
-        <input type="date" name="fechaNacimiento" value={form.fechaNacimiento} onChange={manejarCambio}/>
-        <select name="genero" value={form.genero} onChange={manejarCambio}>
-          <option value="">Género</option>
-          <option>Masculino</option>
-          <option>Femenino</option>
-        </select>
-        <input name="correo" placeholder="Correo" value={form.correo} onChange={manejarCambio}/>
-        <input name="telefono" placeholder="Teléfono" value={form.telefono} onChange={manejarCambio}/>
-      </div>
-
-      <div className="hv-acciones-formulario">
-        <button className="hv-boton-principal" onClick={guardar}>
-          Guardar datos
-        </button>
-      </div>
-    </div>
-  );
-}
-
-/* =========================
-   DIRECCIÓN
-========================= */
-
-function Direccion() {
-  const [tipoZona, setTipoZona] = useState("");
-  const [form, setForm] = useState({
-    departamento: "",
-    municipio: "",
-    direccion: "",
-    vereda: "",
-  });
-
-  const [error, setError] = useState("");
-
-  const manejarCambio = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const guardar = () => {
-    if (!tipoZona || !form.departamento || !form.municipio) {
-      setError("Campos obligatorios.");
-      return;
-    }
-
-    setError("");
-    console.log({ tipoZona, ...form });
-  };
-
-  return (
-    <div className="hv-bloque">
-      <h2>Dirección</h2>
-
-      {error && <div className="login-error">{error}</div>}
-
-      <div className="hv-form-grid">
-        <select onChange={(e) => setTipoZona(e.target.value)}>
-          <option value="">Zona</option>
-          <option value="urbana">Urbana</option>
-          <option value="rural">Rural</option>
-        </select>
-
-        <input name="departamento" placeholder="Departamento" onChange={manejarCambio}/>
-        <input name="municipio" placeholder="Municipio" onChange={manejarCambio}/>
-
-        {tipoZona === "urbana" && (
-          <input name="direccion" placeholder="Dirección" onChange={manejarCambio}/>
         )}
 
-        {tipoZona === "rural" && (
-          <input name="vereda" placeholder="Vereda" onChange={manejarCambio}/>
+        {submodulo === "demograficos" && (
+          <div className="hv-seccion">
+            <h3>Datos Demográficos</h3>
+            <div className="hv-grid-2">
+              <div className="hv-campo">
+                <label>Género</label>
+                <select defaultValue="MASCULINO">
+                  <option>MASCULINO</option>
+                  <option>FEMENINO</option>
+                </select>
+              </div>
+              <div className="hv-campo">
+                <label>Fecha de Nacimiento</label>
+                <input type="date" defaultValue="1972-01-30" />
+              </div>
+              <div className="hv-campo">
+                <label>Estado Civil</label>
+                <select defaultValue="CASADO">
+                  <option>SOLTERO</option>
+                  <option>CASADO</option>
+                  <option>DIVORCIADO</option>
+                </select>
+              </div>
+              <div className="hv-campo">
+                <label>Nacionalidad</label>
+                <input type="text" value="COLOMBIANA" readOnly />
+              </div>
+            </div>
+            <div className="hv-acciones">
+              <button className="hv-boton-guardar">Guardar</button>
+              <button className="hv-boton-cancelar">Cancelar</button>
+            </div>
+          </div>
         )}
-      </div>
 
-      <div className="hv-acciones-formulario">
-        <button className="hv-boton-principal" onClick={guardar}>
-          Guardar dirección
-        </button>
+        {submodulo === "contacto" && (
+          <div className="hv-seccion">
+            <h3>Datos de Contacto</h3>
+            <div className="hv-grid-2">
+              <div className="hv-campo">
+                <label>Teléfono Móvil</label>
+                <input type="tel" defaultValue="3015234567" />
+              </div>
+              <div className="hv-campo">
+                <label>Teléfono Fijo</label>
+                <input type="tel" defaultValue="6017395656" />
+              </div>
+              <div className="hv-campo">
+                <label>Dirección</label>
+                <input type="text" defaultValue="Calle 22 No. 45-67" />
+              </div>
+              <div className="hv-campo">
+                <label>Ciudad</label>
+                <input type="text" defaultValue="Bogotá" />
+              </div>
+            </div>
+            <div className="hv-acciones">
+              <button className="hv-boton-guardar">Guardar</button>
+              <button className="hv-boton-cancelar">Cancelar</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-/* =========================
-   EDUCACIÓN
-========================= */
+/* =====================
+   MÓDULO EDUCACIÓN
+===================== */
 
-function Educacion() {
-  const [form, setForm] = useState({
-    nivel: "",
-    institucion: "",
-    titulo: "",
-    anio: "",
-  });
-
-  const [lista, setLista] = useState([]);
-  const [error, setError] = useState("");
-
-  const manejarCambio = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const agregar = () => {
-    if (!form.nivel || !form.institucion || !form.titulo || !form.anio) {
-      setError("Campos obligatorios.");
-      return;
-    }
-
-    setLista([...lista, form]);
-    setForm({ nivel: "", institucion: "", titulo: "", anio: "" });
-    setError("");
-  };
+function ModuloEducacion() {
+  const [educacion] = useState([
+    {
+      institucion: "UNIVERSIDAD DEL VALLE",
+      nivel: "PREGRADO",
+      area: "INGENIERÍA, ARQUITECTURA, URBANISMO Y AFINES",
+      pais: "COLOMBIA",
+      fecha: "19/02/2001 - 28/26/2004",
+    },
+  ]);
 
   return (
-    <div className="hv-bloque">
-      <h2>Educación</h2>
-
-      {error && <div className="login-error">{error}</div>}
-
-      <div className="hv-form-grid">
-        <input name="nivel" placeholder="Nivel" value={form.nivel} onChange={manejarCambio}/>
-        <input name="institucion" placeholder="Institución" value={form.institucion} onChange={manejarCambio}/>
-        <input name="titulo" placeholder="Título" value={form.titulo} onChange={manejarCambio}/>
-        <input name="anio" placeholder="Año" value={form.anio} onChange={manejarCambio}/>
+    <div className="hv-modulo">
+      <div className="hv-tabla-contenedor">
+        <table className="hv-tabla">
+          <thead>
+            <tr>
+              <th>Institución Educativa</th>
+              <th>Nivel Académico</th>
+              <th>Área de Conocimiento</th>
+              <th>País</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {educacion.map((edu, i) => (
+              <tr key={i}>
+                <td>{edu.institucion}</td>
+                <td>{edu.nivel}</td>
+                <td>{edu.area}</td>
+                <td>{edu.pais}</td>
+                <td>{edu.fecha}</td>
+                <td className="hv-acciones-tabla">
+                  <button title="Ver">👁️</button>
+                  <button title="Editar">✏️</button>
+                  <button title="Eliminar">🗑️</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      <div className="hv-acciones-formulario">
-        <button className="hv-boton-principal" onClick={agregar}>
-          Agregar estudio
-        </button>
-      </div>
-
-      {lista.map((item, i) => (
-        <div key={i} className="hv-item">
-          <strong>{item.nivel}</strong> - {item.titulo} <br />
-          {item.institucion} ({item.anio})
-        </div>
-      ))}
+      <button className="hv-boton-agregar">+ Agregar Nuevo</button>
     </div>
   );
 }
 
-/* =========================
-   EXPERIENCIA
-========================= */
+/* =====================
+   MÓDULO EXPERIENCIA LABORAL
+===================== */
 
-function Experiencia() {
-  const [form, setForm] = useState({
-    empresa: "",
-    cargo: "",
-    fechaInicio: "",
-    fechaFin: "",
-    actual: false,
-  });
-
-  const [lista, setLista] = useState([]);
-  const [error, setError] = useState("");
-
-  const manejarCambio = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    setForm({
-      ...form,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
-
-  const validar = () => {
-    if (!form.empresa || !form.cargo || !form.fechaInicio)
-      return "Campos obligatorios.";
-
-    if (!form.actual && !form.fechaFin)
-      return "Ingrese fecha fin o marque actual.";
-
-    if (form.fechaFin && form.fechaFin < form.fechaInicio)
-      return "Fechas inválidas.";
-
-    return "";
-  };
-
-  const agregar = () => {
-    const err = validar();
-
-    if (err) {
-      setError(err);
-      return;
-    }
-
-    setLista([...lista, form]);
-
-    setForm({
-      empresa: "",
-      cargo: "",
-      fechaInicio: "",
-      fechaFin: "",
-      actual: false,
-    });
-
-    setError("");
-  };
+function ModuloExperiencia() {
+  const [experiencia] = useState([
+    {
+      institucion: "UNIVERSIDAD AUTÓNOMA",
+      nivel: "PREGRADO",
+      area: "INGENIERÍA, ARQUITECTURA, URBANISMO Y AFINES",
+      pais: "COLOMBIA",
+      fecha: "25/06/2024 - 28/11/2025",
+    },
+    {
+      institucion: "UNIVERSIDAD DE SAN BUENAVENTURA CALI",
+      nivel: "PREGRADO",
+      area: "INGENIERÍA, ARQUITECTURA, URBANISMO Y AFINES",
+      pais: "COLOMBIA",
+      fecha: "06/02/2024",
+    },
+  ]);
 
   return (
-    <div className="hv-bloque">
-      <h2>Experiencia laboral</h2>
-
-      {error && <div className="login-error">{error}</div>}
-
-      <div className="hv-form-grid">
-        <input name="empresa" placeholder="Empresa" value={form.empresa} onChange={manejarCambio}/>
-        <input name="cargo" placeholder="Cargo" value={form.cargo} onChange={manejarCambio}/>
-        <input type="date" name="fechaInicio" value={form.fechaInicio} onChange={manejarCambio}/>
-
-        {!form.actual && (
-          <input type="date" name="fechaFin" value={form.fechaFin} onChange={manejarCambio}/>
-        )}
+    <div className="hv-modulo">
+      <div className="hv-tabla-contenedor">
+        <table className="hv-tabla">
+          <thead>
+            <tr>
+              <th>Institución</th>
+              <th>Nivel Académico</th>
+              <th>Área de Conocimiento</th>
+              <th>País</th>
+              <th>Fecha Inicio - Fecha Fin</th>
+              <th>Verificado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {experiencia.map((exp, i) => (
+              <tr key={i}>
+                <td>{exp.institucion}</td>
+                <td>{exp.nivel}</td>
+                <td>{exp.area}</td>
+                <td>{exp.pais}</td>
+                <td>{exp.fecha}</td>
+                <td>
+                  <input type="checkbox" />
+                </td>
+                <td className="hv-acciones-tabla">
+                  <button title="Ver">👁️</button>
+                  <button title="Editar">✏️</button>
+                  <button title="Eliminar">🗑️</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+      <button className="hv-boton-agregar">+ Agregar Nuevo</button>
+    </div>
+  );
+}
 
-      <div className="hv-checkbox">
-        <input
-          type="checkbox"
-          name="actual"
-          checked={form.actual}
-          onChange={manejarCambio}
-          id="trabajoActual"
-        />
-        <label htmlFor="trabajoActual">Trabajo actual</label>
+/* =====================
+   MÓDULO DOCENCIA
+===================== */
+
+function ModuloDocencia() {
+  return (
+    <div className="hv-modulo">
+      <div className="hv-tabla-contenedor">
+        <table className="hv-tabla">
+          <thead>
+            <tr>
+              <th>Institución Educativa</th>
+              <th>Nivel Académico</th>
+              <th>Área de Conocimiento</th>
+              <th>País</th>
+              <th>Fecha Inicio - Fecha Fin</th>
+              <th>Verificado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="7" style={{ textAlign: "center", padding: "20px", color: "#999" }}>
+                No hay registros
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+      <button className="hv-boton-agregar">+ Agregar Nuevo</button>
+    </div>
+  );
+}
 
-      <div className="hv-acciones-formulario">
-        <button className="hv-boton-principal" onClick={agregar}>
-          Agregar experiencia
-        </button>
+/* =====================
+   MÓDULO DOCUMENTOS
+===================== */
+
+function ModuloDocumentos() {
+  return (
+    <div className="hv-modulo">
+      <p style={{ padding: "20px", color: "#666" }}>
+        Aquí puedes adjuntar documentos adicionales como certificados o credenciales.
+      </p>
+      <div className="hv-carga-documentos">
+        <input type="file" multiple />
+        <button className="hv-boton-cargar">Cargar Documentos</button>
       </div>
+    </div>
+  );
+}
 
-      {lista.map((item, i) => (
-        <div key={i} className="hv-item">
-          <strong>{item.cargo}</strong> - {item.empresa} <br />
-          {item.fechaInicio} → {item.actual ? "Actualidad" : item.fechaFin}
-        </div>
-      ))}
+/* =====================
+   MÓDULO GERENCIA
+===================== */
+
+function ModuloGerencia() {
+  return (
+    <div className="hv-modulo">
+      <p style={{ padding: "20px", color: "#666" }}>
+        Esta sección está disponible para servidores públicos con responsabilidades de gerencia pública.
+      </p>
     </div>
   );
 }
