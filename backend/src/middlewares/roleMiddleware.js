@@ -1,3 +1,5 @@
+import customError from "../utils/customError.js";
+
 const roleMiddleware = (rolPermitido) => {
     return (req, res, next) => {
     if (!req.user) {
