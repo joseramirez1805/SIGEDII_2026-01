@@ -650,3 +650,182 @@
 .hv-boton-volver:hover {
   background: #d6e3f5;
 }
+
+.hv-columna-completa {
+  grid-column: 1 / -1;
+}
+
+.hv-nota-archivo {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.hv-lista-documentos {
+  margin-top: 24px;
+}
+
+.hv-documento-item {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #dbe3f1;
+  border-radius: 10px;
+  background: #f9fbff;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* =====================
+   ALERTAS
+===================== */
+
+.login-error,
+.hv-error {
+  background: #fdecec;
+  color: #b42318;
+  border: 1px solid #f5c2c0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.login-success,
+.hv-success {
+  background: #ecfdf3;
+  color: #027a48;
+  border: 1px solid #abefc6;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* =====================
+   DOCUMENTOS EDUCACIÓN
+===================== */
+
+.hv-documento-item strong {
+  color: #1a4e8c;
+  font-size: 15px;
+}
+
+.hv-documento-item small {
+  color: #666;
+  display: block;
+  margin-top: 4px;
+}
+
+.hv-documento-item button {
+  min-width: 160px;
+}
+
+/* =====================
+   TABLAS RESPONSIVE
+===================== */
+
+.hv-tabla td input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.hv-tabla tbody tr td {
+  vertical-align: middle;
+}
+
+/* =====================
+   BOTONES GENERALES
+===================== */
+
+.hv-boton-principal:hover,
+.hv-boton-secundario:hover,
+.hv-boton-guardar:hover,
+.hv-boton-agregar:hover {
+  transform: translateY(-1px);
+}
+
+.hv-boton-principal:active,
+.hv-boton-secundario:active,
+.hv-boton-guardar:active,
+.hv-boton-agregar:active {
+  transform: scale(0.98);
+}
+
+/* =====================
+   FORMULARIOS
+===================== */
+
+.hv-form-grid input[type="file"] {
+  padding: 8px;
+  background: #fff;
+}
+
+.hv-form-grid input::placeholder {
+  color: #9aa3b2;
+}
+
+/* =====================
+   EXPERIENCIA Y DOCENCIA
+===================== */
+
+.hv-tabla-contenedor::-webkit-scrollbar {
+  height: 8px;
+}
+
+.hv-tabla-contenedor::-webkit-scrollbar-thumb {
+  background: #c9d5e7;
+  border-radius: 20px;
+}
+
+.hv-tabla-contenedor::-webkit-scrollbar-track {
+  background: #eef3fa;
+}
+
+/* =====================
+   DOCUMENTOS ADICIONALES
+===================== */
+
+.hv-carga-documentos {
+  margin-top: 18px;
+  background: #f9fbff;
+}
+
+.hv-carga-documentos input[type="file"] {
+  background: #fff;
+}
+
+/* =====================
+   GERENCIA PÚBLICA
+===================== */
+
+.hv-modulo p {
+  line-height: 1.7;
+}
+
+/* =====================
+   RESPONSIVE EXTRA
+===================== */
+
+@media (max-width: 700px) {
+  .hv-documento-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hv-documento-item button {
+    width: 100%;
+  }
+
+  .hv-carga-documentos {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hv-carga-documentos button {
+    width: 100%;
+  }
+}

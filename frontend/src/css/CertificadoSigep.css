@@ -1,0 +1,170 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Montserrat:wght@700;800&display=swap");
+
+.cert-page {
+  min-height: 100vh;
+  background: #f4f6fa;
+  font-family: "Source Sans 3", sans-serif;
+  padding: 40px 24px;
+}
+
+.cert-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.cert-header-top {
+  background: #1a4e8c;
+  color: white;
+  border-radius: 14px 14px 0 0;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cert-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.cert-gov {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* =====================
+   CARD
+===================== */
+
+.cert-card {
+  background: white;
+  border-radius: 0 0 14px 14px;
+  padding: 36px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #dbe3f1;
+}
+
+.cert-title {
+  margin-bottom: 10px;
+  font-size: 34px;
+  color: #1a4e8c;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+}
+
+.cert-description {
+  color: #5b6572;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  font-size: 15px;
+}
+
+/* =====================
+   INFO GRID
+===================== */
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.cert-item {
+  background: #f8fbff;
+  border: 1px solid #dbe3f1;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.cert-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cert-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.cert-active {
+  color: #0b8f44;
+}
+
+/* =====================
+   ACTIONS
+===================== */
+
+.cert-actions {
+  margin-top: 36px;
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+.cert-button {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.cert-button.primary {
+  background: #1a4e8c;
+  color: white;
+}
+
+.cert-button.primary:hover {
+  background: #163d6b;
+}
+
+.cert-button.secondary {
+  background: #e9eef6;
+  color: #1a4e8c;
+}
+
+.cert-button.secondary:hover {
+  background: #dbe7f7;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+  .cert-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cert-card {
+    padding: 24px;
+  }
+
+  .cert-header-top {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .cert-actions {
+    flex-direction: column;
+  }
+
+  .cert-button {
+    width: 100%;
+  }
+}
