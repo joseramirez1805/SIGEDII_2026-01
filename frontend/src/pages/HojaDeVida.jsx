@@ -14,6 +14,45 @@ const MODULOS = [
 
 const TAMANO_MAXIMO_2MB = 2 * 1024 * 1024;
 
+function convertirArchivoABase64(archivo) {
+  return new Promise((resolve, reject) => {
+    const lector = new FileReader();
+
+    lector.readAsDataURL(archivo);
+
+    lector.onload = () => resolve(lector.result);
+
+    lector.onerror = (error) => reject(error);
+  });
+}
+
+// Función auxiliar para evadir la restricción de seguridad al abrir Base64 directamente en pestañas nuevas
+function abrirBase64EnNuevaPestana(cadenaBase64) {
+  if (!cadenaBase64) return;
+  
+  // Separar el encabezado de metadatos de los datos puros en Base64
+  const partes = cadenaBase64.split(",");
+  const contenidoBase64 = partes[1];
+  const tipoMime = partes[0].split(":")[1].split(";")[0];
+
+  // Decodificar Base64 a binario string
+  const caracteresBinarios = atob(contenidoBase64);
+  const numerosBinarios = new Array(caracteresBinarios.length);
+  
+  for (let i = 0; i < caracteresBinarios.length; i++) {
+    numerosBinarios[i] = caracteresBinarios.charCodeAt(i);
+  }
+  
+  const matrizBytes = new Uint8Array(numerosBinarios);
+  
+  // Crear el Blob binario asignándole su tipo MIME correcto
+  const archivoBlob = new Blob([matrizBytes], { type: tipoMime });
+  
+  // Generar URL interna temporal segura para que el visor del navegador renderice el PDF/JPG
+  const urlBlob = URL.createObjectURL(archivoBlob);
+  window.open(urlBlob, "_blank");
+}
+
 function esArchivoPDF(archivo) {
   return archivo?.type === "application/pdf";
 }
@@ -76,86 +115,86 @@ export default function HojaDeVida() {
     }
   };
 
-return (
-  <div className="hv-root">
-    <header className="hv-header">
-      <div className="hv-header-left">
-        <div className="hv-logo">sigepII</div>
-        <div className="hv-titulo-principal">Función Pública</div>
-      </div>
+  return (
+    <div className="hv-root">
+      <header className="hv-header">
+        <div className="hv-header-left">
+          <div className="hv-logo">sigepII</div>
+          <div className="hv-titulo-principal">Función Pública</div>
+        </div>
 
-      <div className="hv-header-right">
-        <span>Ivan Mauricio Cabezas Troyano</span>
-
-        <button
-          type="button"
-          onClick={() => cerrarSesion()}
-        >
-          Cerrar sesión
-        </button>
-      </div>
-    </header>
-
-    <nav className="hv-nav-principal">
-      {MODULOS.map((mod) => (
-        <button
-          key={mod.id}
-          type="button"
-          className={`hv-tab ${
-            moduloActual === mod.id ? "activo" : ""
-          }`}
-          onClick={() => {
-            setModuloActual(mod.id);
-            setSubmodulo("basicos");
-          }}
-        >
-          {mod.titulo}
-        </button>
-      ))}
-    </nav>
-
-    <div className="hv-contenedor">
-
-      {moduloActual === "datos" && (
-        <div className="hv-acciones-superiores">
-          <button
-            type="button"
-            className="hv-boton-secundario"
-            onClick={() => window.print()}
-          >
-            Imprimir hoja de vida
-          </button>
+        <div className="hv-header-right">
+          <span>Ivan Mauricio Cabezas Troyano</span>
 
           <button
             type="button"
-            className="hv-boton-principal"
-            onClick={descargarHojaVida}
+            onClick={() => cerrarSesion()}
           >
-            Descargar hoja de vida
+            Cerrar sesión
           </button>
         </div>
-      )}
+      </header>
 
-      <h1>
-        {MODULOS.find(
-          (m) => m.id === moduloActual
-        )?.titulo}
-      </h1>
+      <nav className="hv-nav-principal">
+        {MODULOS.map((mod) => (
+          <button
+            key={mod.id}
+            type="button"
+            className={`hv-tab ${
+              moduloActual === mod.id ? "activo" : ""
+            }`}
+            onClick={() => {
+              setModuloActual(mod.id);
+              setSubmodulo("basicos");
+            }}
+          >
+            {mod.titulo}
+          </button>
+        ))}
+      </nav>
 
-      {renderizarContenido()}
+      <div className="hv-contenedor">
+
+        {moduloActual === "datos" && (
+          <div className="hv-acciones-superiores">
+            <button
+              type="button"
+              className="hv-boton-secundario"
+              onClick={() => window.print()}
+            >
+              Imprimir hoja de vida
+            </button>
+
+            <button
+              type="button"
+              className="hv-boton-principal"
+              onClick={descargarHojaVida}
+            >
+              Descargar hoja de vida
+            </button>
+          </div>
+        )}
+
+        <h1>
+          {MODULOS.find(
+            (m) => m.id === moduloActual
+          )?.titulo}
+        </h1>
+
+        {renderizarContenido()}
+      </div>
+
+      <footer className="hv-footer">
+        <button
+          type="button"
+          className="hv-boton-volver"
+          onClick={() => navigate("/panel-sigep")}
+        >
+          ← Volver al panel
+        </button>
+      </footer>
     </div>
-
-    <footer className="hv-footer">
-      <button
-        type="button"
-        className="hv-boton-volver"
-        onClick={() => navigate("/panel-sigep")}
-      >
-        ← Volver al panel
-      </button>
-    </footer>
-  </div>
-);
+  );
 }
 
 /* =====================
@@ -165,7 +204,7 @@ return (
 function ModuloDatos({ submodulo, setSubmodulo }) {
   const [datosBasicos] = useState({
     nombre: "Ivan Mauricio Cabezas Troyano",
-    tipoDoc: "CÉDULA DE CIUDADANÍA",
+    typeDoc: "CÉDULA DE CIUDADANÍA",
     numeroDoc: "13456789",
     correo: "ivan@example.com",
   });
@@ -211,7 +250,7 @@ function ModuloDatos({ submodulo, setSubmodulo }) {
 
               <div className="hv-campo">
                 <label>Tipo de Documento</label>
-                <input type="text" value={datosBasicos.tipoDoc} readOnly />
+                <input type="text" value={datosBasicos.typeDoc} readOnly />
               </div>
 
               <div className="hv-campo">
@@ -342,7 +381,7 @@ function ModuloEducacion() {
     setArchivoSoporte(archivo);
   };
 
-  const guardar = () => {
+  const guardar = async () => {
     if (!form.nivel || !form.institucion || !form.titulo || !form.fechaGrado) {
       setError("Todos los campos son obligatorios.");
       setMensaje("");
@@ -355,11 +394,13 @@ function ModuloEducacion() {
       return;
     }
 
+    const archivoBase64 = await convertirArchivoABase64(archivoSoporte);
+
     const nuevo = {
       id: Date.now(),
       ...form,
       soporteNombre: archivoSoporte.name,
-      soporteUrl: URL.createObjectURL(archivoSoporte),
+      soporteBase64: archivoBase64,
     };
 
     setLista([nuevo, ...lista]);
@@ -457,23 +498,25 @@ function ModuloEducacion() {
         {lista.length === 0 ? (
           <p>No hay formación registrada.</p>
         ) : (
-          lista.map((item) => (
-            <div key={item.id} className="hv-documento-item">
-              <div>
-                <strong>{item.nivel}</strong> - {item.titulo}
-                <div>{item.institucion}</div>
-                <small>{item.fechaGrado}</small>
-              </div>
+          <div className="hv-mapeo-lista">
+            {lista.map((item) => (
+              <div key={item.id} className="hv-documento-item">
+                <div>
+                  <strong>{item.nivel}</strong> - {item.titulo}
+                  <div>{item.institucion}</div>
+                  <small>{item.fechaGrado}</small>
+                </div>
 
-              <button
-                type="button"
-                className="hv-boton-secundario"
-                onClick={() => window.open(item.soporteUrl, "_blank", "noopener,noreferrer")}
-              >
-                Mostrar documento
-              </button>
-            </div>
-          ))
+                <button
+                  type="button"
+                  className="hv-boton-secundario"
+                  onClick={() => abrirBase64EnNuevaPestana(item.soporteBase64)}
+                >
+                  Mostrar documento
+                </button>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>
@@ -560,7 +603,7 @@ function ModuloExperiencia() {
     return "";
   };
 
-  const guardar = () => {
+  const guardar = async () => {
     const errorValidacion = validar();
 
     if (errorValidacion) {
@@ -569,11 +612,13 @@ function ModuloExperiencia() {
       return;
     }
 
+    const archivoBase64 = await convertirArchivoABase64(archivoSoporte);
+
     const nuevoRegistro = {
       id: Date.now(),
       ...form,
       soporteNombre: archivoSoporte.name,
-      soporteUrl: URL.createObjectURL(archivoSoporte),
+      soporteBase64: archivoBase64,
     };
 
     setExperiencias([nuevoRegistro, ...experiencias]);
@@ -723,9 +768,7 @@ function ModuloExperiencia() {
               <button
                 type="button"
                 className="hv-boton-secundario"
-                onClick={() =>
-                  window.open(item.soporteUrl, "_blank", "noopener,noreferrer")
-                }
+                onClick={() => abrirBase64EnNuevaPestana(item.soporteBase64)}
               >
                 Mostrar documento
               </button>
@@ -766,15 +809,15 @@ function ModuloDocencia() {
   };
 
   const manejarArchivo = (e) => {
-    const archivo = e.target.files?.[0];
+    const file = e.target.files?.[0];
 
-    if (!archivo) return;
+    if (!file) return;
 
-    const esPDF = archivo.type === "application/pdf";
+    const esPDF = file.type === "application/pdf";
     const esJPG =
-      archivo.type === "image/jpeg" ||
-      archivo.name.toLowerCase().endsWith(".jpg") ||
-      archivo.name.toLowerCase().endsWith(".jpeg");
+      file.type === "image/jpeg" ||
+      file.name.toLowerCase().endsWith(".jpg") ||
+      file.name.toLowerCase().endsWith(".jpeg");
 
     if (!esPDF && !esJPG) {
       setError("Solo se permiten archivos PDF o JPG.");
@@ -784,7 +827,7 @@ function ModuloDocencia() {
       return;
     }
 
-    if (archivo.size > TAMANO_MAXIMO_2MB) {
+    if (file.size > TAMANO_MAXIMO_2MB) {
       setError("El archivo supera el límite de 2 MB.");
       setMensaje("");
       setArchivoSoporte(null);
@@ -793,7 +836,7 @@ function ModuloDocencia() {
     }
 
     setError("");
-    setArchivoSoporte(archivo);
+    setArchivoSoporte(file);
   };
 
   const validar = () => {
@@ -821,7 +864,7 @@ function ModuloDocencia() {
     return "";
   };
 
-  const guardar = () => {
+  const guardar = async () => {
     const errorValidacion = validar();
 
     if (errorValidacion) {
@@ -830,11 +873,13 @@ function ModuloDocencia() {
       return;
     }
 
+    const archivoBase64 = await convertirArchivoABase64(archivoSoporte);
+
     const nuevoRegistro = {
       id: Date.now(),
       ...form,
       soporteNombre: archivoSoporte.name,
-      soporteUrl: URL.createObjectURL(archivoSoporte),
+      soporteBase64: archivoBase64,
     };
 
     setDocencias([nuevoRegistro, ...docencias]);
@@ -973,9 +1018,7 @@ function ModuloDocencia() {
               <button
                 type="button"
                 className="hv-boton-secundario"
-                onClick={() =>
-                  window.open(item.soporteUrl, "_blank", "noopener,noreferrer")
-                }
+                onClick={() => abrirBase64EnNuevaPestana(item.soporteBase64)}
               >
                 Mostrar documento
               </button>
@@ -986,6 +1029,7 @@ function ModuloDocencia() {
     </div>
   );
 }
+
 /* =====================
    MÓDULO DOCUMENTOS
 ===================== */
@@ -1015,7 +1059,6 @@ function ModuloDocumentos() {
     if (!archivoSeleccionado) return;
 
     const esPDF = archivoSeleccionado.type === "application/pdf";
-
     const esJPG =
       archivoSeleccionado.type === "image/jpeg" ||
       archivoSeleccionado.name.toLowerCase().endsWith(".jpg") ||
@@ -1053,7 +1096,7 @@ function ModuloDocumentos() {
     return "";
   };
 
-  const guardarDocumento = () => {
+  const guardarDocumento = async () => {
     const errorValidacion = validar();
 
     if (errorValidacion) {
@@ -1062,11 +1105,13 @@ function ModuloDocumentos() {
       return;
     }
 
+    const archivoBase64 = await convertirArchivoABase64(archivo);
+
     const nuevoDocumento = {
       id: Date.now(),
       ...form,
       archivoNombre: archivo.name,
-      archivoUrl: URL.createObjectURL(archivo),
+      archivoBase64: archivoBase64,
     };
 
     setDocumentos([nuevoDocumento, ...documentos]);
@@ -1183,13 +1228,7 @@ function ModuloDocumentos() {
                 <button
                   type="button"
                   className="hv-boton-secundario"
-                  onClick={() =>
-                    window.open(
-                      doc.archivoUrl,
-                      "_blank",
-                      "noopener,noreferrer"
-                    )
-                  }
+                  onClick={() => abrirBase64EnNuevaPestana(doc.archivoBase64)}
                 >
                   Ver documento
                 </button>
