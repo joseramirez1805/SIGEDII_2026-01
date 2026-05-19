@@ -1,0 +1,353 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Montserrat:wght@700;800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  font-family: "Source Sans 3", sans-serif;
+  color: #222;
+}
+
+.ps-shell {
+  box-sizing: border-box;
+}
+
+.ps-top {
+  background: #1a4e8c;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 20px;
+}
+
+.ps-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #fff;
+}
+
+.ps-gov-logo {
+  justify-self: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.ps-user-mini {
+  justify-self: end;
+  text-align: right;
+  font-size: 14px;
+  color: #dbe7f7;
+}
+
+.ps-user-mini button {
+  margin-top: 6px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+
+.ps-user-mini button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ps-tabs {
+  display: flex;
+  gap: 0;
+  margin: 0;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ps-tab {
+  border: none;
+  background: transparent;
+  color: #444;
+  padding: 12px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.ps-tab:hover {
+  color: #1a4e8c;
+}
+
+.ps-tab.active {
+  color: #1a4e8c;
+  border-bottom-color: #1a4e8c;
+}
+
+.ps-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ps-main {
+  padding: 0;
+}
+
+.ps-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.ps-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #e5ecf7;
+}
+
+.ps-card:hover {
+  box-shadow: 0 4px 16px rgba(26, 78, 140, 0.12);
+  transform: translateY(-2px);
+}
+
+.ps-card-image {
+  height: 160px;
+  background: linear-gradient(135deg, #1a4e8c 0%, #2e6fa8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.ps-card-caption {
+  width: 100%;
+  background: #f5f6fa;
+  color: #1a4e8c;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.2s;
+}
+
+.ps-card-caption:hover {
+  background: #eff0f5;
+}
+
+.ps-card p {
+  margin: 12px 0;
+  color: #5b6572;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 0 16px;
+}
+
+.ps-card-action {
+  display: inline-block;
+  background: #1a4e8c;
+  color: #fff;
+  padding: 8px 16px;
+  margin: 0 16px 16px 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.ps-card-action:hover {
+  background: #1e3a5f;
+}
+
+.ps-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ps-user-box,
+.ps-entity-box,
+.ps-help-box,
+.ps-video-box {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e5ecf7;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.ps-user-box {
+  background: linear-gradient(135deg, #1a4e8c 0%, #1e3a5f 100%);
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+.ps-user-box strong,
+.ps-entity-box strong,
+.ps-help-box strong,
+.ps-video-box strong {
+  display: block;
+  background: linear-gradient(135deg, #1a4e8c 0%, #1e3a5f 100%);
+  color: #fff;
+  padding: 10px 12px;
+  margin: -1px -1px 0 -1px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ps-user-box span {
+  display: block;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ps-entity-box,
+.ps-help-box,
+.ps-video-box {
+  background: #fff;
+}
+
+.ps-entity-box .ps-select,
+.ps-screen {
+  display: block;
+  padding: 12px;
+}
+
+.ps-entity-box .ps-select {
+  font-size: 13px;
+  color: #333;
+  background: #f5f6fa;
+}
+
+.ps-sidebar-button {
+  width: 100%;
+  background: #1a4e8c;
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+  text-align: left;
+}
+
+.ps-sidebar-button:hover {
+  background: #1e3a5f;
+}
+
+.ps-help-link {
+  width: 100%;
+  background: transparent;
+  color: #1a4e8c;
+  padding: 10px 12px;
+  font-size: 13px;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.ps-help-link:first-child {
+  border-top: none;
+}
+
+.ps-help-link:hover {
+  background: #f5f6fa;
+  color: #1e3a5f;
+}
+
+.ps-screen {
+  height: 100px;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a4e8c;
+  background: #f5f6fa;
+  border-radius: 6px;
+  margin: 12px;
+}
+
+@media (max-width: 1120px) {
+  .ps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-sidebar {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ps-page {
+    padding: 0;
+  }
+
+  .ps-grid {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .ps-top {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    text-align: center;
+    padding: 12px 16px;
+  }
+
+  .ps-logo {
+    font-size: 20px;
+  }
+
+  .ps-gov-logo,
+  .ps-user-mini {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .ps-user-mini {
+    font-size: 12px;
+  }
+
+  .ps-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-sidebar {
+    grid-template-columns: 1fr;
+  }
+}

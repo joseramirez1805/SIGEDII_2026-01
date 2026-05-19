@@ -1,0 +1,831 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Montserrat:wght@700;800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.hv-root {
+  font-family: "Source Sans 3", sans-serif;
+  background: #f5f6fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================
+   HEADER
+===================== */
+
+.hv-header {
+  background: #1a4e8c;
+  color: #fff;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hv-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hv-logo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.hv-titulo-principal {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hv-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.hv-header-right button {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hv-header-right button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* =====================
+   NAVEGACIÓN PRINCIPAL
+===================== */
+
+.hv-nav-principal {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 24px;
+  gap: 0;
+}
+
+.hv-tab {
+  border: none;
+  background: transparent;
+  color: #444;
+  padding: 12px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.hv-tab:hover {
+  color: #1a4e8c;
+}
+
+.hv-tab.activo {
+  color: #1a4e8c;
+  border-bottom-color: #1a4e8c;
+  font-weight: 600;
+}
+
+/* =====================
+   CONTENEDOR PRINCIPAL
+===================== */
+
+.hv-contenedor {
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hv-contenedor > h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #1a4e8c;
+  margin-bottom: 20px;
+}
+
+/* =====================
+   MÓDULO
+===================== */
+
+.hv-modulo {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e5ecf7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================
+   SUBTABS
+===================== */
+
+.hv-subtabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.hv-subtab {
+  background: transparent;
+  border: none;
+  color: #666;
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.hv-subtab:hover {
+  color: #1a4e8c;
+}
+
+.hv-subtab.activo {
+  color: #1a4e8c;
+  border-bottom-color: #1a4e8c;
+  font-weight: 600;
+}
+
+/* =====================
+   FORMULARIOS
+===================== */
+
+.hv-formulario {
+  padding: 20px 0;
+}
+
+.hv-seccion {
+  padding: 20px 0;
+}
+
+.hv-seccion h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a4e8c;
+  margin-bottom: 16px;
+}
+
+.hv-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hv-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hv-campo label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.hv-campo input,
+.hv-campo select {
+  padding: 8px 12px;
+  border: 1px solid #d0d7e6;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+.hv-campo input:focus,
+.hv-campo select:focus {
+  outline: none;
+  border-color: #1a4e8c;
+  box-shadow: 0 0 0 3px rgba(26, 78, 140, 0.1);
+}
+
+/* =====================
+   ACCIONES
+===================== */
+
+.hv-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.hv-boton-guardar,
+.hv-boton-cargar {
+  background: #1a4e8c;
+  color: #fff;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hv-boton-guardar:hover,
+.hv-boton-cargar:hover {
+  background: #1e3a5f;
+}
+
+.hv-boton-cancelar {
+  background: #e8e8e8;
+  color: #333;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hv-boton-cancelar:hover {
+  background: #d8d8d8;
+}
+
+.hv-boton-agregar {
+  background: #1a4e8c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all 0.2s;
+}
+
+.hv-boton-agregar:hover {
+  background: #1e3a5f;
+}
+
+/* =====================
+   TABLAS
+===================== */
+
+.hv-tabla-contenedor {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.hv-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.hv-tabla thead {
+  background: #1a4e8c;
+  color: #fff;
+}
+
+.hv-tabla th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.hv-tabla td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.hv-tabla tbody tr:hover {
+  background: #f5f6fa;
+}
+
+.hv-acciones-tabla {
+  display: flex;
+  gap: 8px;
+}
+
+.hv-acciones-tabla button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+  transition: all 0.2s;
+}
+
+.hv-acciones-tabla button:hover {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+/* =====================
+   CARGA DE DOCUMENTOS
+===================== */
+
+.hv-carga-documentos {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border: 2px dashed #d0d7e6;
+  border-radius: 6px;
+  align-items: center;
+}
+
+.hv-carga-documentos input[type="file"] {
+  padding: 8px;
+  border: 1px solid #d0d7e6;
+  border-radius: 4px;
+  flex: 1;
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+.hv-footer {
+  padding: 16px 24px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.hv-boton-volver {
+  background: transparent;
+  border: none;
+  color: #1a4e8c;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline;
+  transition: all 0.2s;
+}
+
+.hv-boton-volver:hover {
+  color: #1e3a5f;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+  .hv-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hv-header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hv-nav-principal {
+    padding: 0 16px;
+    overflow-x: auto;
+  }
+
+  .hv-contenedor {
+    padding: 16px;
+  }
+
+  .hv-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hv-tabla {
+    font-size: 12px;
+  }
+
+  .hv-tabla th,
+  .hv-tabla td {
+    padding: 8px;
+  }
+}
+
+.hv-sidebar {
+  background: linear-gradient(180deg, #1a4e8c 0%, #1e3a5f 100%);
+  color: #fff;
+  padding: 32px 22px;
+}
+
+.hv-titulo {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.hv-subtitulo {
+  font-size: 14px;
+  color: #dbe7f7;
+  margin-bottom: 28px;
+}
+
+.hv-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hv-boton-menu {
+  border: none;
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hv-boton-menu:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateX(2px);
+}
+
+.hv-boton-menu.activo {
+  background: #fff;
+  color: #1a4e8c;
+}
+
+.hv-contenido {
+  padding: 32px;
+}
+
+.hv-cabecera {
+  margin-bottom: 20px;
+}
+
+.hv-cabecera h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  color: #1a4e8c;
+  margin-bottom: 6px;
+}
+
+.hv-cabecera p {
+  color: #5b6572;
+  font-size: 15px;
+}
+
+.hv-bloque {
+  background: #fff;
+  border: 1px solid #e5ecf7;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  min-height: 320px;
+}
+
+.hv-bloque h2 {
+  font-size: 24px;
+  color: #1a4e8c;
+  margin-bottom: 10px;
+}
+
+.hv-bloque p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+}
+
+.hv-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  justify-content: flex-end;
+}
+
+.hv-boton-principal,
+.hv-boton-secundario {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.hv-boton-principal {
+  background: #1a4e8c;
+  color: #fff;
+}
+
+.hv-boton-secundario {
+  background: #e9eef6;
+  color: #1a4e8c;
+}
+
+@media (max-width: 900px) {
+  .hv-root {
+    grid-template-columns: 1fr;
+  }
+
+  .hv-sidebar {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hv-contenido {
+    padding: 18px;
+  }
+
+  .hv-bloque {
+    padding: 20px;
+  }
+
+  .hv-acciones {
+    flex-direction: column;
+  }
+
+  .hv-boton-principal,
+  .hv-boton-secundario {
+    width: 100%;
+  }
+}
+
+.hv-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.hv-form-grid label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.hv-form-grid input,
+.hv-form-grid select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cfd8e6;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+@media (max-width: 700px) {
+  .hv-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hv-item {
+  background: #f4f7fc;
+  border: 1px solid #dbe3f1;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.hv-acciones-formulario {
+  margin-top: 20px;
+}
+
+.hv-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.hv-checkbox input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.hv-checkbox label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.hv-checkbox input {
+  transform: scale(1.2);
+}
+
+.hv-header-top {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.hv-boton-volver {
+  background: #e4ecf7;
+  color: #1a4e8c;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hv-boton-volver:hover {
+  background: #d6e3f5;
+}
+
+.hv-columna-completa {
+  grid-column: 1 / -1;
+}
+
+.hv-nota-archivo {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.hv-lista-documentos {
+  margin-top: 24px;
+}
+
+.hv-documento-item {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #dbe3f1;
+  border-radius: 10px;
+  background: #f9fbff;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* =====================
+   ALERTAS
+===================== */
+
+.login-error,
+.hv-error {
+  background: #fdecec;
+  color: #b42318;
+  border: 1px solid #f5c2c0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.login-success,
+.hv-success {
+  background: #ecfdf3;
+  color: #027a48;
+  border: 1px solid #abefc6;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* =====================
+   DOCUMENTOS EDUCACIÓN
+===================== */
+
+.hv-documento-item strong {
+  color: #1a4e8c;
+  font-size: 15px;
+}
+
+.hv-documento-item small {
+  color: #666;
+  display: block;
+  margin-top: 4px;
+}
+
+.hv-documento-item button {
+  min-width: 160px;
+}
+
+/* =====================
+   TABLAS RESPONSIVE
+===================== */
+
+.hv-tabla td input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.hv-tabla tbody tr td {
+  vertical-align: middle;
+}
+
+/* =====================
+   BOTONES GENERALES
+===================== */
+
+.hv-boton-principal:hover,
+.hv-boton-secundario:hover,
+.hv-boton-guardar:hover,
+.hv-boton-agregar:hover {
+  transform: translateY(-1px);
+}
+
+.hv-boton-principal:active,
+.hv-boton-secundario:active,
+.hv-boton-guardar:active,
+.hv-boton-agregar:active {
+  transform: scale(0.98);
+}
+
+/* =====================
+   FORMULARIOS
+===================== */
+
+.hv-form-grid input[type="file"] {
+  padding: 8px;
+  background: #fff;
+}
+
+.hv-form-grid input::placeholder {
+  color: #9aa3b2;
+}
+
+/* =====================
+   EXPERIENCIA Y DOCENCIA
+===================== */
+
+.hv-tabla-contenedor::-webkit-scrollbar {
+  height: 8px;
+}
+
+.hv-tabla-contenedor::-webkit-scrollbar-thumb {
+  background: #c9d5e7;
+  border-radius: 20px;
+}
+
+.hv-tabla-contenedor::-webkit-scrollbar-track {
+  background: #eef3fa;
+}
+
+/* =====================
+   DOCUMENTOS ADICIONALES
+===================== */
+
+.hv-carga-documentos {
+  margin-top: 18px;
+  background: #f9fbff;
+}
+
+.hv-carga-documentos input[type="file"] {
+  background: #fff;
+}
+
+/* =====================
+   GERENCIA PÚBLICA
+===================== */
+
+.hv-modulo p {
+  line-height: 1.7;
+}
+
+/* =====================
+   RESPONSIVE EXTRA
+===================== */
+
+@media (max-width: 700px) {
+  .hv-documento-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hv-documento-item button {
+    width: 100%;
+  }
+
+  .hv-carga-documentos {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hv-carga-documentos button {
+    width: 100%;
+  }
+}

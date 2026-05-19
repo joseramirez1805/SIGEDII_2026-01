@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Montserrat:wght@700;800&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+.pf-page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  font-family: "Source Sans 3", sans-serif;
+  padding: 40px 20px;
+}
+
+.pf-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 20px;
+}
+
+.pf-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 34px;
+  color: #1a4e8c;
+  font-weight: 800;
+}
+
+.pf-button {
+  background: #1a4e8c;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.pf-button:hover {
+  background: #163d69;
+}
+
+.pf-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 30px;
+  border: 1px solid #e4ebf5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.pf-description {
+  color: #5b6572;
+  margin-bottom: 28px;
+  font-size: 15px;
+}
+
+.pf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pf-item {
+  border: 1px solid #dbe3f1;
+  border-radius: 14px;
+  padding: 20px;
+  background: #f9fbff;
+  transition: 0.2s;
+}
+
+.pf-item:hover {
+  border-color: #1a4e8c;
+  transform: translateY(-2px);
+}
+
+.pf-question {
+  color: #1a4e8c;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.pf-answer {
+  color: #444;
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .pf-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pf-title {
+    font-size: 28px;
+  }
+
+  .pf-card {
+    padding: 22px;
+  }
+}
