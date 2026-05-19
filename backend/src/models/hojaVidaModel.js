@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 const hojaVidaSchema = new Schema({
     usuarioId: {
         type: Schema.Types.ObjectId,
-        ref: "usuarios",
+        ref: "Usuario",
         required: true,
         unique: true
     },
@@ -86,6 +86,14 @@ const hojaVidaSchema = new Schema({
         },
         tarjetaProfesional: {
             type: String
+        },
+        // Base64 del soporte adjunto (PDF o JPG)
+        soporteBase64: {
+            type: String,
+            required: true
+        },
+        soporteNombre: {
+            type: String
         }
     }],
     experienciaLaboral: [{
@@ -141,12 +149,20 @@ const hojaVidaSchema = new Schema({
         motivoRetiro: {
             type: String,
             required: true
+        },
+        // Base64 del soporte adjunto (PDF o JPG)
+        soporteBase64: {
+            type: String,
+            required: true
+        },
+        soporteNombre: {
+            type: String
         }
     }]
 }, {
     timestamps: true
 });
 
-const HojaVida = model("HojaVida", hojaVidaSchema);
+const HojaVida = model("HojaVida", hojaVidaSchema, "hojaVida");
 
 export default HojaVida;

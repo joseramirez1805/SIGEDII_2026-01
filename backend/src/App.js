@@ -1,7 +1,10 @@
 import express from "express";
 import { testConnection } from "./config/mongoDb.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
+import "./models/usuariosModel.js";
+import hojaVidaRoutes from "./routes/hojaVidaRoutes.js";
 import dotenv from "dotenv";
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 dotenv.config();
 
@@ -10,6 +13,10 @@ const app = express();
 
 app.use(express.json());
 app.use("/usuarios", usuariosRoutes);
+app.use("/api/hoja-vida", hojaVidaRoutes);
+app.use(errorHandler);
+
+
 
 const serverConnection = async () => {
   try {
