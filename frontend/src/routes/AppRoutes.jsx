@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "../pages/Login.jsx";
 import Home from "../pages/Home.jsx";
 import PanelSigep from "../pages/PanelSigep.jsx";
+import JFHPanel from "../pages/JFHPanel.jsx";
 import Recuperar from "../pages/Recuperar.jsx";
 import CambiarContrasena from "../pages/CambiarContrasena.jsx";
 import HojaDeVida from "../pages/HojaDeVida.jsx";
@@ -21,9 +22,13 @@ function ProtectedRoute({ children }) {
 }
 
 function PublicRoute({ children }) {
-  const { usuarioAutenticado } = useAuth();
+  const { usuarioAutenticado, rol } = useAuth();
 
   if (usuarioAutenticado) {
+    // Redirigir según el rol
+    if (rol === "jefeTalentoHumano") {
+      return <Navigate to="/panel-jfh" replace />;
+    }
     return <Navigate to="/panel-sigep" replace />;
   }
 
@@ -57,6 +62,15 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <PanelSigep />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/panel-jfh"
+        element={
+          <ProtectedRoute>
+            <JFHPanel />
           </ProtectedRoute>
         }
       />

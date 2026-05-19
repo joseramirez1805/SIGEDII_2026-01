@@ -1,0 +1,12 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd \"/home/joserc/Documents/7to Semestre/Proyecto Informatico/SIGEDII_2026-01/backend\" && npm start$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^cd \"/home/joserc/Documents/7to Semestre/Proyecto Informatico/SIGEDII_2026-01/frontend\" && npm run build$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

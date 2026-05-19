@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import AuthLayout from "../components/AuthLayout.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { loginAPI } from "../services/apiService.js";
 
 export default function Login() {
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [mensajeError, setMensajeError] = useState("");
+  const [cargando, setCargando] = useState(false);
   const navigate = useNavigate();
   const { iniciarSesion, usuarioAutenticado } = useAuth();
 
@@ -19,7 +21,7 @@ export default function Login() {
     }
   }, [usuarioAutenticado, navigate]);
 
-  const manejarEnvio = (evento) => {
+  const manejarEnvio = async (evento) => {
     evento.preventDefault();
 
     if (!tipoDocumento || !numeroDocumento || !contrasena) {
@@ -28,13 +30,47 @@ export default function Login() {
     }
 
     setMensajeError("");
+    setCargando(true);
 
-    // SIMULACIÓN LOGIN
-    if (numeroDocumento === "123" && contrasena === "123") {
-      iniciarSesion();
-      navigate("/panel-sigep");
-    } else {
-      setMensajeError("Credenciales inválidas");
+    try {
+      // Mapear el tipo de documento al valor que espera el backend
+      const tipoMap = {
+        CC: "cedulaCiudadania",
+        CE: "cedulaExtranjera",
+        TI: "tarjetaIdentidad",
+        PA: "pasaporte",
+      };
+
+      const tipoParaBackend = tipoMap[tipoDocumento] || tipoDocumento;
+
+      // Llamar al backend
+      const respuesta = await loginAPI(tipoParaBackend, numeroDocumento, contrasena);
+
+      // Obtener datos del usuario
+      const datosUsuario = {
+        numeroDocumento: respuesta.user.numIdentificacion,
+        tipoDocumento: tipoParaBackend,
+        nombre: respuesta.user.nombres,
+        correo: respuesta.user.email,
+      };
+
+      // Determinar el rol que entrega el backend
+      const rol = respuesta.user.rol || "servidorPublico";
+
+      // Iniciar sesión
+      iniciarSesion(datosUsuario, rol, respuesta.accessToken);
+
+      // Redirigir según el rol
+      if (rol === "jefeTalentoHumano") {
+        navigate("/panel-jfh");
+      } else {
+        navigate("/panel-sigep");
+      }
+    } catch (error) {
+      setMensajeError(error.message || "Error al iniciar sesión. Verifica tus credenciales.");
+      console.error("Error de login:", error);
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -100,8 +136,8 @@ export default function Login() {
               placeholder="Digite su contraseña"
             />
 
-            <button type="submit" className="login-boton">
-              Ingresar
+            <button type="submit" className="login-boton" disabled={cargando}>
+              {cargando ? "Ingresando..." : "Ingresar"}
             </button>
 
             <button
