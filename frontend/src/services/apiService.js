@@ -87,14 +87,14 @@ export const recuperarContraseñaAPI = async (tipoDocumento, numIdentificacion) 
   }
 };
 
-export const cambiarContraseñaAPI = async (contrasena, token) => {
+export const cambiarContraseñaAPI = async (nuevaContrasena, token) => {
   try {
     const response = await fetch(
       `${API_BASE_URL}/usuarios/cambioContrasena-protegido`,
       {
         method: "PUT",
         headers: getHeaders(token),
-        body: JSON.stringify({ contrasena }),
+        body: JSON.stringify({ contraseña: nuevaContrasena }),
       }
     );
 
@@ -110,15 +110,13 @@ export const cambiarContraseñaAPI = async (contrasena, token) => {
   }
 };
 
-export const cambiarContraseñaSinTokenAPI = async (tipoDocumento, numIdentificacion, nuevaContrasena, token) => {
+export const cambiarContraseñaSinTokenAPI = async (contraseña, token) => {
   try {
     const response = await fetch(`${API_BASE_URL}/usuarios/cambioContrasena`, {
       method: "PUT",
       headers: getHeaders(),
       body: JSON.stringify({
-        tipoDocumento,
-        numIdentificacion,
-        contrasena: nuevaContrasena,
+        contraseña,
         token,
       }),
     });

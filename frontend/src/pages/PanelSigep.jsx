@@ -100,7 +100,7 @@ export default function PanelSigep() {
           <button
             type="button"
             className="ps-tab"
-            onClick={() => navigate("/cambiar-contrasena")}
+            onClick={() => navigate("/cambiar-contrasena-protegido")}
           >
             Cambiar Contraseña
           </button>

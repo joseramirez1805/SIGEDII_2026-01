@@ -5,6 +5,7 @@ import PanelSigep from "../pages/PanelSigep.jsx";
 import JFHPanel from "../pages/JFHPanel.jsx";
 import Recuperar from "../pages/Recuperar.jsx";
 import CambiarContrasena from "../pages/CambiarContrasena.jsx";
+import CambiarContraseñaProtegido from "../pages/CambiarContraseñaProtegido.jsx";
 import HojaDeVida from "../pages/HojaDeVida.jsx";
 import CertificadoSigep from "../pages/CertificadoSigep.jsx";
 import PreguntasFrecuentes from "../pages/PreguntasFrecuentes.jsx";
@@ -57,6 +58,14 @@ export default function AppRoutes() {
       <Route path="/cambiar-contrasena" element={<CambiarContrasena />} />
 
       {/* Privadas */}
+      <Route
+        path="/cambiar-contrasena-protegido"
+        element={
+          <ProtectedRoute>
+            <CambiarContraseñaProtegido />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/panel-sigep"
         element={

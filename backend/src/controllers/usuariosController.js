@@ -47,7 +47,8 @@ export const cambioContraseñaSinJwtControlador = async (req, res, next)=>{
 
 export const cambioContraseñaJwtControlador = async (req, res, next)=>{
     try {
-        const cambio = await cambioContraseñaJwt(req.user.userId, req.body.contraseña);
+        const nuevaContrasena = req.body.contraseña || req.body.contrasena;
+        const cambio = await cambioContraseñaJwt(req.user.userId, nuevaContrasena);
         return res.status(200).json({message: cambio});
     } catch (error) {
         next(error);
