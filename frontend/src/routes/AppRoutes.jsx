@@ -102,6 +102,15 @@ export default function AppRoutes() {
         }
       />
 
+      <Route
+        path="/ver-hoja-de-vida"
+        element={
+          <ProtectedRoute>
+            <CertificadoSigep />
+          </ProtectedRoute>
+        }
+      />
+
       {/* Páginas auxiliares */}
       <Route
         path="/preguntas-frecuentes"

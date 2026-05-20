@@ -1,8 +1,42 @@
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { obtenerHojaVidaAPI } from "../services/apiService.js";
 import "../css/CertificadoSigep.css";
 
 export default function CertificadoSigep() {
   const navigate = useNavigate();
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
+  const [hojaVida, setHojaVida] = useState(null);
+
+  useEffect(() => {
+    const cargarHojaVida = async () => {
+      try {
+        setCargando(true);
+        const respuesta = await obtenerHojaVidaAPI();
+        setHojaVida(respuesta?.data || null);
+      } catch (err) {
+        setError(err?.message || "No se pudo cargar la hoja de vida");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarHojaVida();
+  }, []);
+
+  const nombreCompleto = useMemo(() => {
+    const apellidos = hojaVida?.apellidos || [];
+    return apellidos.length > 0 ? apellidos.join(" ") : "Sin datos";
+  }, [hojaVida]);
+
+  const formatoFecha = (valor) => {
+    if (!valor) return "Sin dato";
+    const fecha = new Date(valor);
+    return Number.isNaN(fecha.getTime())
+      ? valor
+      : fecha.toLocaleDateString("es-CO", { year: "numeric", month: "2-digit", day: "2-digit" });
+  };
 
   return (
     <main className="cert-page">
@@ -17,79 +51,86 @@ export default function CertificadoSigep() {
         </header>
 
         <section className="cert-card">
-          <h1 className="cert-title">
-            Certificado de situación actual
-          </h1>
+          <h1 className="cert-title">Ver hoja de vida</h1>
 
           <p className="cert-description">
-            Este certificado valida la información actual registrada
-            en el Sistema de Información y Gestión del Empleo Público
-            (SIGEP II).
+            Aquí puedes revisar la información registrada en tu hoja de vida y
+            verificar los datos que ya enviaste al sistema.
           </p>
 
-          <div className="cert-grid">
+          {cargando && <div className="cert-status">Cargando hoja de vida...</div>}
+          {error && <div className="cert-status cert-error">{error}</div>}
 
-            <div className="cert-item">
-              <span className="cert-label">
-                Nombre completo
-              </span>
+          {!cargando && !error && hojaVida && (
+            <>
+              <div className="cert-summary">
+                <div className="cert-summary-title">Resumen general</div>
+                <div className="cert-summary-grid">
+                  <div className="cert-item">
+                    <span className="cert-label">Nombre completo</span>
+                    <div className="cert-value">{nombreCompleto}</div>
+                  </div>
 
-              <div className="cert-value">
-                Ivan Mauricio Cabezas Troyano
+                  <div className="cert-item">
+                    <span className="cert-label">Documento</span>
+                    <div className="cert-value">
+                      {hojaVida?.usuarioId?.tipoDocumento || "Sin dato"} {hojaVida?.usuarioId?.numIdentificacion || ""}
+                    </div>
+                  </div>
+
+                  <div className="cert-item">
+                    <span className="cert-label">Fecha de nacimiento</span>
+                    <div className="cert-value">{formatoFecha(hojaVida.fechaNacimiento)}</div>
+                  </div>
+
+                  <div className="cert-item">
+                    <span className="cert-label">Género</span>
+                    <div className="cert-value">{hojaVida.genero || "Sin dato"}</div>
+                  </div>
+
+                  <div className="cert-item">
+                    <span className="cert-label">Teléfono</span>
+                    <div className="cert-value">{hojaVida?.datosContacto?.telefono || "Sin dato"}</div>
+                  </div>
+
+                  <div className="cert-item">
+                    <span className="cert-label">Dirección</span>
+                    <div className="cert-value">{hojaVida?.datosContacto?.direccionResidencia || "Sin dato"}</div>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div className="cert-item">
-              <span className="cert-label">
-                Tipo de documento
-              </span>
-
-              <div className="cert-value">
-                Cédula de ciudadanía
+              <div className="cert-section">
+                <h2>Formación académica</h2>
+                <div className="cert-list">
+                  {(hojaVida.formacionAcademica || []).map((item, index) => (
+                    <article className="cert-list-item" key={`${item.institucion}-${index}`}>
+                      <strong>{item.nivelAcademico} · {item.nivelFormacion}</strong>
+                      <div>{item.institucion}</div>
+                      <small>{item.programaAcademico}</small>
+                      <small>{item.tituloObtenido}</small>
+                      <small>Grado: {formatoFecha(item.fechaGrado)}</small>
+                    </article>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            <div className="cert-item">
-              <span className="cert-label">
-                Número de documento
-              </span>
-
-              <div className="cert-value">
-                13456789
+              <div className="cert-section">
+                <h2>Experiencia laboral</h2>
+                <div className="cert-list">
+                  {(hojaVida.experienciaLaboral || []).map((item, index) => (
+                    <article className="cert-list-item" key={`${item.nombreInstitucion}-${index}`}>
+                      <strong>{item.nombreInstitucion}</strong>
+                      <div>{item.cargo}</div>
+                      <small>{formatoFecha(item.fechaIngreso)} - {formatoFecha(item.fechaTerminacion)}</small>
+                      <small>{item.ubicacion?.ciudad}, {item.ubicacion?.pais}</small>
+                      <small>Jornada: {item.jornadaLaboral}</small>
+                    </article>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div className="cert-item">
-              <span className="cert-label">
-                Estado en SIGEP II
-              </span>
-
-              <div className="cert-value cert-active">
-                ACTIVO
-              </div>
-            </div>
-
-            <div className="cert-item">
-              <span className="cert-label">
-                Entidad asociada
-              </span>
-
-              <div className="cert-value">
-                Universidad Autónoma de Occidente
-              </div>
-            </div>
-
-            <div className="cert-item">
-              <span className="cert-label">
-                Fecha de generación
-              </span>
-
-              <div className="cert-value">
-                17/05/2026
-              </div>
-            </div>
-
-          </div>
+            </>
+          )}
 
           <div className="cert-actions">
             <button
@@ -103,7 +144,7 @@ export default function CertificadoSigep() {
               className="cert-button primary"
               onClick={() => window.print()}
             >
-              Imprimir certificado
+              Imprimir hoja de vida
             </button>
           </div>
         </section>

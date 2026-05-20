@@ -11,10 +11,10 @@ const MAIN_CARDS = [
     route: "/hoja-de-vida",
   },
   {
-    title: "Certificado de situación actual en SIGEP II",
+    title: "Ver hoja de vida",
     subtitle:
-      "Revisa el estado actual de tu registro dentro del sistema.",
-    button: "Abrir certificado",
+      "Consulta la hoja de vida que ya guardaste y revisa los datos cargados.",
+    button: "Ver hoja de vida",
     route: "/certificado-sigep",
   },
 ];

@@ -1,4 +1,4 @@
-import { registroHojaVida } from "../services/hojaVidaService.js";
+import { obtenerHojaVidaPorUsuario, registroHojaVida } from "../services/hojaVidaService.js";
 
 export const crearHojaVida = async (req, res, next) => {
   try {
@@ -14,6 +14,21 @@ const usuarioId = req.user?.userId || "69de641cb4074992459ab84e";
     return res.status(201).json({
       success: true,
       message: "Hoja de vida creada correctamente",
+      data: hojaVida,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const obtenerHojaVida = async (req, res, next) => {
+  try {
+    const usuarioId = req.user?.userId || "69de641cb4074992459ab84e";
+    const hojaVida = await obtenerHojaVidaPorUsuario(usuarioId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Hoja de vida encontrada correctamente",
       data: hojaVida,
     });
   } catch (error) {

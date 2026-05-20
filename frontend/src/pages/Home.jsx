@@ -28,8 +28,8 @@ const NAV_ITEMS = [
 ];
 
 const CARDS = [
-  { icon: "📋", title: "Hoja de Vida", desc: "Actualiza y gestiona tu hoja de vida en el sistema de empleo público colombiano." },
-  { icon: "📁", title: "Directorios", desc: "Consulta los directorios de servidores públicos y entidades del Estado." },
+  { icon: "📋", title: "Hoja de Vida", desc: "Crea y gestiona tu hoja de vida en el sistema de empleo público colombiano." },
+  { icon: "➕", title: "Ampliar hoja de vida", desc: "Agrega más formación académica y experiencia laboral cuando ya tengas una hoja de vida creada." },
   { icon: "📊", title: "Cifras", desc: "Estadísticas y datos sobre el empleo público en Colombia." },
   { icon: "❓", title: "Preguntas Frecuentes", desc: "Encuentra respuestas a las dudas más comunes sobre SIGEP II." },
 ];
@@ -173,7 +173,7 @@ export default function SigepII() {
               className="info-card"
               key={card.title}
               onClick={() => {
-                if (card.title === "Hoja de Vida") {
+                if (card.title === "Hoja de Vida" || card.title === "Ampliar hoja de vida") {
                   navigate("/hoja-de-vida");
                 }
               }}

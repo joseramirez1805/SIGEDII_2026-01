@@ -65,6 +65,70 @@
   font-size: 15px;
 }
 
+.cert-status {
+  background: #f8fbff;
+  border: 1px solid #dbe3f1;
+  color: #35507a;
+  padding: 14px 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.cert-error {
+  background: #fdecec;
+  border-color: #f5c2c0;
+  color: #b42318;
+}
+
+.cert-summary {
+  margin-bottom: 28px;
+}
+
+.cert-summary-title,
+.cert-section h2 {
+  font-family: "Montserrat", sans-serif;
+  color: #1a4e8c;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.cert-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.cert-section {
+  margin-top: 24px;
+}
+
+.cert-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.cert-list-item {
+  background: #f8fbff;
+  border: 1px solid #dbe3f1;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cert-list-item strong {
+  color: #1a4e8c;
+  font-size: 15px;
+}
+
+.cert-list-item small {
+  color: #5b6572;
+}
+
 /* =====================
    INFO GRID
 ===================== */
@@ -146,6 +210,10 @@
 ===================== */
 
 @media (max-width: 768px) {
+  .cert-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cert-grid {
     grid-template-columns: 1fr;
   }

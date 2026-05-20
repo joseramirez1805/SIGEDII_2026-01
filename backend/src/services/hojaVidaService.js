@@ -381,3 +381,30 @@ export const registroHojaVida = async (usuarioId, payload) => {
     throw new customError(`Error al registrar hoja de vida: ${error.message}`, 500);
   }
 };
+
+/**
+ * Obtener hoja de vida del usuario autenticado
+ *
+ * @param {String} usuarioId - ID del usuario autenticado
+ * @returns {Object} - Documento de hoja de vida encontrado
+ */
+export const obtenerHojaVidaPorUsuario = async (usuarioId) => {
+  try {
+    const hojaVida = await HojaVida.findOne({ usuarioId }).populate(
+      "usuarioId",
+      "nombres numIdentificacion tipoDocumento email rol"
+    );
+
+    if (!hojaVida) {
+      throw new customError("No se encontró una hoja de vida para este usuario", 404);
+    }
+
+    return hojaVida;
+  } catch (error) {
+    if (error.status) {
+      throw error;
+    }
+
+    throw new customError(`Error al obtener hoja de vida: ${error.message}`, 500);
+  }
+};
