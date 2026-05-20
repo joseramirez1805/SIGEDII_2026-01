@@ -1,10 +1,13 @@
+import customError from "../utils/customError.js";
 import { obtenerHojaVidaPorUsuario, registroHojaVida } from "../services/hojaVidaService.js";
 
 export const crearHojaVida = async (req, res, next) => {
   try {
-    // Usuario autenticado desde middleware JWT
-    // Temporal para pruebas: reemplazar con un ID real de tu BD
-const usuarioId = req.user?.userId || "69de641cb4074992459ab84e";
+    if (!req.user || !req.user.userId) {
+      throw new customError("Usuario no autenticado", 401);
+    }
+
+    const usuarioId = req.user.userId;
 
     // Todos los datos vienen en el body como JSON (incluyendo Base64)
     const payload = req.body;
@@ -23,7 +26,11 @@ const usuarioId = req.user?.userId || "69de641cb4074992459ab84e";
 
 export const obtenerHojaVida = async (req, res, next) => {
   try {
-    const usuarioId = req.user?.userId || "69de641cb4074992459ab84e";
+    if (!req.user || !req.user.userId) {
+      throw new customError("Usuario no autenticado", 401);
+    }
+
+    const usuarioId = req.user.userId;
     const hojaVida = await obtenerHojaVidaPorUsuario(usuarioId);
 
     return res.status(200).json({

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post(
   "/",
-  // authMiddleware,  // Descomentar cuando se conecte con el frontend
+  authMiddleware,
   crearHojaVida
 );
 
