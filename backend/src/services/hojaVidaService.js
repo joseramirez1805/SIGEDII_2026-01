@@ -382,6 +382,69 @@ export const registroHojaVida = async (usuarioId, payload) => {
   }
 };
 
+export const actualizarHojaVida = async (usuarioId, payload) => {
+  try {
+    // Buscar hoja de vida existente
+    const hoja = await HojaVida.findOne({ usuarioId });
+
+    if (!hoja) {
+      throw new customError("No se encontró una hoja de vida para este usuario", 404);
+    }
+
+    const { datosPersonales, formacionAcademica, experienciaLaboral, gerenciaPublica } = payload;
+
+    // Si se envía datosPersonales, validar y actualizar
+    if (datosPersonales) {
+      validarDatosPersonales(datosPersonales);
+      hoja.apellidos = datosPersonales.apellidos;
+      hoja.fechaNacimiento = datosPersonales.fechaNacimiento;
+      hoja.genero = datosPersonales.genero;
+      hoja.datosContacto = datosPersonales.datosContacto;
+    }
+
+    // Si se envía formaciones, validar y agregar (append)
+    if (formacionAcademica) {
+      if (!Array.isArray(formacionAcademica)) {
+        throw new customError("Formación académica debe ser un array", 400);
+      }
+      // validar cada nuevo registro
+      validarFormacionAcademica(formacionAcademica);
+      hoja.formacionAcademica = Array.isArray(hoja.formacionAcademica)
+        ? hoja.formacionAcademica.concat(formacionAcademica)
+        : formacionAcademica;
+    }
+
+    // Si se envía experiencias, validar y agregar (append)
+    if (experienciaLaboral) {
+      if (!Array.isArray(experienciaLaboral)) {
+        throw new customError("Experiencia laboral debe ser un array", 400);
+      }
+      // validar cada nuevo registro
+      validarExperienciaLaboral(experienciaLaboral);
+      hoja.experienciaLaboral = Array.isArray(hoja.experienciaLaboral)
+        ? hoja.experienciaLaboral.concat(experienciaLaboral)
+        : experienciaLaboral;
+    }
+
+    if (gerenciaPublica) {
+      await validarPermisoGerenciaPublica(usuarioId);
+      hoja.gerenciaPublica = gerenciaPublica;
+    }
+
+    await hoja.save();
+
+    const hojaPopulada = await HojaVida.findById(hoja._id).populate(
+      "usuarioId",
+      "nombres numIdentificacion tipoDocumento email rol"
+    );
+
+    return hojaPopulada;
+  } catch (error) {
+    if (error.status) throw error;
+    throw new customError(`Error al actualizar hoja de vida: ${error.message}`, 500);
+  }
+};
+
 /**
  * Obtener hoja de vida del usuario autenticado
  *
