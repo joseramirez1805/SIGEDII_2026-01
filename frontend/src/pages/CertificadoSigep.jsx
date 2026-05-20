@@ -200,7 +200,7 @@ export default function CertificadoSigep() {
               className="cert-button primary"
               onClick={() => window.print()}
             >
-              Imprimir hoja de vida
+              Descargar hoja de vida
             </button>
           </div>
         </section>
