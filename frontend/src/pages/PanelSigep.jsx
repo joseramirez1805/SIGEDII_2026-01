@@ -49,7 +49,8 @@ function GovLogo() {
 
 export default function PanelSigep() {
   const navigate = useNavigate();
-  const { cerrarSesion } = useAuth();
+  const { cerrarSesion, usuario } = useAuth();
+  const nombreCompletoUsuario = usuario?.nombre || "Usuario";
 
   const manejarSidebarAction = (action) => {
     if (action === "Imprimir Mi Hoja De Vida") {
@@ -71,7 +72,7 @@ export default function PanelSigep() {
           <GovLogo />
 
           <div className="ps-user-mini">
-            <div>Ivan Mauricio Cabezas Troyano</div>
+            <div>{nombreCompletoUsuario}</div>
 
             <button type="button" onClick={() => cerrarSesion()}>
               Cerrar Sesión
@@ -142,7 +143,7 @@ export default function PanelSigep() {
             {/* USUARIO */}
             <div className="ps-user-box">
               <strong>Usuario</strong>
-              <span>Ivan Mauricio Cabezas Troyano</span>
+              <span>{nombreCompletoUsuario}</span>
             </div>
 
             {/* ACCIONES */}
